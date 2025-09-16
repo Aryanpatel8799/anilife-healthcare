@@ -35,7 +35,7 @@ app.use(helmet({
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
     ? ['https://anilife-healthcare.vercel.app', 'https://www.yourdomain.com'] // Replace with your frontend domain
-    : ['http://localhost:3000', 'http://localhost:5000', 'http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:5174'],
+    : ['http://localhost:3000', 'http://localhost:5000', 'http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:5174','https://anilife-healthcare.vercel.app'],
   credentials: true,
   optionsSuccessStatus: 200
 };

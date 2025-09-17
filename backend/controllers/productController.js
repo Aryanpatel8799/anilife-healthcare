@@ -126,8 +126,8 @@ const createProduct = async (req, res) => {
               {
                 folder: 'anilife-products',
                 transformation: [
-                  { width: 800, height: 600, crop: 'fill' },
-                  { quality: 'auto' }
+                  { width: 1200, height: 1200, crop: 'limit' },
+                  { quality: 'auto', fetch_format: 'auto' }
                 ]
               },
               (error, result) => {
@@ -242,8 +242,8 @@ const updateProduct = async (req, res) => {
               {
                 folder: 'anilife-products',
                 transformation: [
-                  { width: 800, height: 600, crop: 'fill' },
-                  { quality: 'auto' }
+                  { width: 1200, height: 1200, crop: 'limit' },
+                  { quality: 'auto', fetch_format: 'auto' }
                 ]
               },
               (error, result) => {

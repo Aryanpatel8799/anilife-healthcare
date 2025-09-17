@@ -1,9 +1,17 @@
 import React from 'react';
 import { Award, Users, Heart, Target, CheckCircle, Globe, Building2, Zap, Shield, Factory } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const About = () => {
   return (
-    <div className="page-container">
+    <>
+      <SEO 
+        title="About Us"
+        description="Learn about AniLife Healthcare - Leading animal nutrition supplement company established in 2024. Specializing in cattle, aquaculture, poultry, and pet supplements with international certifications and global reach."
+        keywords="about anilife healthcare, animal nutrition company, livestock supplement manufacturer, Gujarat animal health company, cattle supplement supplier, aquaculture nutrition expert, poultry supplement specialist, pet nutrition company, animal wellness solutions, veterinary supplement manufacturer, export quality animal supplements, FSSAI licensed company, GMP certified supplements, international animal nutrition"
+        url="/about"
+      />
+      <div className="page-container">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 via-white to-primary-100 py-20">
         <div className="max-width section-padding">
@@ -181,52 +189,88 @@ const About = () => {
       </section>
 
       {/* Global Reach & Certifications */}
-      <section className="py-20 bg-primary-600 text-white">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="max-width section-padding">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Global Reach & Certifications</h2>
-            <p className="text-xl text-primary-100 max-w-3xl mx-auto">
+            <div className="bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-medium inline-block mb-6">
+              Global Excellence
+            </div>
+            <h2 className="text-4xl font-bold text-secondary-900 mb-6">Global Reach & Certifications</h2>
+            <p className="text-xl text-secondary-600 max-w-3xl mx-auto">
               Trusted worldwide with international certifications and export excellence
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-2xl font-semibold mb-6">Global Presence</h3>
-              <p className="text-lg text-primary-100 mb-6">
-                Exporting to multiple countries with consistent quality and international partnerships
+          {/* Global Presence */}
+          <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="flex items-center mb-6">
+                  <div className="bg-primary-100 w-12 h-12 rounded-xl flex items-center justify-center mr-4">
+                    <Globe className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-secondary-900">Global Presence</h3>
+                </div>
+                <p className="text-lg text-secondary-600 mb-8 leading-relaxed">
+                  Exporting to multiple countries with consistent quality and international partnerships
+                </p>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    "Export to multiple countries",
+                    "International quality standards", 
+                    "Global distribution network",
+                    "Consistent quality worldwide"
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center p-3 bg-primary-50 rounded-lg">
+                      <CheckCircle className="w-5 h-5 text-primary-600 mr-3 flex-shrink-0" />
+                      <span className="text-secondary-700 font-medium">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="relative">
+                <div className="bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl p-8 text-white text-center">
+                  <Globe className="w-20 h-20 mx-auto mb-6 text-primary-100" />
+                  <h4 className="text-xl font-bold mb-3">International Markets</h4>
+                  <p className="text-primary-100 text-lg">
+                    Serving customers across continents with reliable quality
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Certifications */}
+          <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+            <div className="text-center mb-12">
+              <div className="flex items-center justify-center mb-6">
+                <div className="bg-primary-100 w-12 h-12 rounded-xl flex items-center justify-center mr-4">
+                  <Award className="w-6 h-6 text-primary-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-secondary-900">Our Certifications</h3>
+              </div>
+              <p className="text-lg text-secondary-600">
+                Certified excellence ensuring the highest quality standards
               </p>
-              <ul className="space-y-4">
-                {[
-                  "Export to multiple countries",
-                  "International quality standards", 
-                  "Global distribution network",
-                  "Consistent quality worldwide"
-                ].map((item, index) => (
-                  <li key={index} className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-primary-200 mr-3" />
-                    <span className="text-primary-100">{item}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
             
-            <div>
-              <h3 className="text-2xl font-semibold mb-6">Our Certifications</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { name: "FIEO", desc: "Export Excellence" },
-                  { name: "APEDA", desc: "Registration" },
-                  { name: "GMP", desc: "Compliance" }, 
-                  { name: "FSSAI", desc: "License" }
-                ].map((cert, index) => (
-                  <div key={index} className="bg-white bg-opacity-10 rounded-lg p-4 text-center backdrop-blur-sm">
-                    <Award className="w-8 h-8 text-primary-200 mx-auto mb-3" />
-                    <div className="font-semibold">{cert.name}</div>
-                    <div className="text-sm text-primary-200">{cert.desc}</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { name: "FIEO", desc: "Export Excellence", color: "from-blue-500 to-blue-600" },
+                { name: "APEDA", desc: "Registration", color: "from-green-500 to-green-600" },
+                { name: "GMP", desc: "Compliance", color: "from-purple-500 to-purple-600" }, 
+                { name: "FSSAI", desc: "License", color: "from-orange-500 to-orange-600" }
+              ].map((cert, index) => (
+                <div key={index} className="group">
+                  <div className={`bg-gradient-to-br ${cert.color} rounded-xl p-6 text-white text-center transform group-hover:scale-105 transition-all duration-300 shadow-lg`}>
+                    <Award className="w-10 h-10 mx-auto mb-4 text-white" />
+                    <div className="text-xl font-bold mb-2">{cert.name}</div>
+                    <div className="text-sm opacity-90">{cert.desc}</div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -279,7 +323,8 @@ const About = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -12,7 +12,6 @@ const Footer = () => {
           {/* Company Info */}
           <div className="col-span-1 lg:col-span-2">
             <Link to="/" className="flex items-center space-x-2 mb-4">
-              <Heart className="w-8 h-8 text-primary-400" />
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-white">Anilife</span>
                 <span className="text-xs text-primary-400 -mt-1">Healthcare</span>
@@ -73,18 +72,18 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-primary-400 mt-0.5" />
                 <span className="text-secondary-300">
-                  123 Agriculture Street,<br />
-                  Farm District, Mumbai,<br />
-                  Maharashtra 400001
+                  27-Sadguru estate,<br />
+                  Depan road, Visnagar,<br />
+                  Gujarat 384315
                 </span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary-400" />
-                <span className="text-secondary-300">+91 98765 43210</span>
+                <span className="text-secondary-300">+91 93273 20094</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary-400" />
-                <span className="text-secondary-300">info@anilife.com</span>
+                <span className="text-secondary-300">Anilifehelthcare@gmail.com</span>
               </li>
             </ul>
           </div>

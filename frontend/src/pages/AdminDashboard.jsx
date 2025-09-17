@@ -205,7 +205,13 @@ const AdminDashboard = () => {
   const handleProductFormChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'images') {
-      setProductForm(prev => ({ ...prev, images: Array.from(files) }));
+      // Limit to maximum 5 images
+      const selectedFiles = Array.from(files).slice(0, 5);
+      setProductForm(prev => ({ ...prev, images: selectedFiles }));
+      
+      if (files.length > 5) {
+        toast.warning('Maximum 5 images allowed. Only first 5 images selected.');
+      }
     } else {
       setProductForm(prev => ({ ...prev, [name]: value }));
     }
@@ -1396,41 +1402,115 @@ const AdminDashboard = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-secondary-700 mb-2">
-                      Product Images (Max 5)
+                      Product Images (Max 5) *
                     </label>
-                    <input
-                      type="file"
-                      name="images"
-                      onChange={handleProductFormChange}
-                      accept="image/*"
-                      multiple
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Select up to 5 images. First image will be the main product image.
+                    <div className="relative">
+                      <input
+                        type="file"
+                        name="images"
+                        onChange={handleProductFormChange}
+                        accept="image/*"
+                        multiple
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500 mt-2 leading-relaxed">
+                      📸 Select up to 5 high-quality images (JPG, PNG, WebP). The first image will be the main product image.
+                      <br />
+                      💡 <span className="font-medium">Best practices:</span> Use images with white/transparent backgrounds, good lighting, and high resolution (at least 800x800px).
                     </p>
                     {isEditMode && selectedProduct?.images && selectedProduct.images.length > 0 && (
-                      <div className="mt-2">
-                        <p className="text-xs text-gray-600 mb-2">Current images:</p>
-                        <div className="flex flex-wrap gap-2">
+                      <div className="mt-4">
+                        <p className="text-sm font-medium text-gray-700 mb-3">Current images:</p>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
                           {selectedProduct.images.map((image, index) => (
-                            <img
-                              key={index}
-                              src={image.url}
-                              alt={image.alt}
-                              className="w-16 h-16 object-cover rounded border"
-                            />
+                            <div key={index} className="relative group">
+                              <div className="aspect-square bg-gray-100 rounded-lg border-2 border-gray-300 overflow-hidden shadow-sm">
+                                <img
+                                  src={image.url}
+                                  alt={image.alt}
+                                  className="w-full h-full object-contain p-2"
+                                />
+                              </div>
+                              <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-semibold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
+                                {index + 1}
+                              </div>
+                              {index === 0 && (
+                                <div className="absolute bottom-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                                  Main
+                                </div>
+                              )}
+                            </div>
                           ))}
+                        </div>
+                        <div className="p-3 bg-amber-50 rounded-lg">
+                          <p className="text-xs text-amber-700">
+                            <span className="font-medium">📝 Note:</span> To replace images, select new files above. New images will replace all current images.
+                          </p>
                         </div>
                       </div>
                     )}
                     {productForm.images && productForm.images.length > 0 && (
-                      <div className="mt-2">
-                        <p className="text-xs text-gray-600 mb-2">Selected files:</p>
-                        <div className="text-xs text-gray-500">
-                          {Array.from(productForm.images).map((file, index) => (
-                            <div key={index}>{file.name}</div>
+                      <div className="mt-4">
+                        <p className="text-sm font-medium text-gray-700 mb-3">New images to upload ({productForm.images.length}/5):</p>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                          {Array.from(productForm.images).slice(0, 5).map((file, index) => (
+                            <div key={index} className="relative group">
+                              <div className="aspect-square bg-gray-100 rounded-lg border-2 border-gray-300 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                                <img
+                                  src={URL.createObjectURL(file)}
+                                  alt={file.name}
+                                  className="w-full h-full object-contain p-2"
+                                  onLoad={(e) => {
+                                    // Clean up object URL after image loads
+                                    setTimeout(() => URL.revokeObjectURL(e.target.src), 1000);
+                                  }}
+                                />
+                              </div>
+                              {/* Image number badge */}
+                              <div className="absolute -top-2 -right-2 bg-primary-600 text-white text-xs font-semibold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
+                                {index + 1}
+                              </div>
+                              {/* Remove button */}
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const newImages = Array.from(productForm.images).filter((_, i) => i !== index);
+                                  setProductForm(prev => ({ ...prev, images: newImages }));
+                                }}
+                                className="absolute -top-2 -left-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
+                                title="Remove this image"
+                              >
+                                ×
+                              </button>
+                              {/* Main image indicator */}
+                              {index === 0 && (
+                                <div className="absolute bottom-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                                  Main
+                                </div>
+                              )}
+                              {/* File name */}
+                              <div className="mt-2 text-xs text-gray-600 text-center truncate px-1">
+                                {file.name}
+                              </div>
+                            </div>
                           ))}
+                        </div>
+                        {productForm.images.length > 5 && (
+                          <p className="text-xs text-amber-600 mt-2 flex items-center">
+                            <span className="w-4 h-4 text-amber-500 mr-1">⚠️</span>
+                            Only first 5 images will be uploaded
+                          </p>
+                        )}
+                        <div className="mt-3 p-3 bg-blue-50 rounded-lg">
+                          <p className="text-xs text-blue-700">
+                            <span className="font-medium">💡 Image Processing:</span>
+                            <br />• Images will be optimized and resized (max 1200x1200px) while maintaining aspect ratio
+                            <br />• No cropping will be applied - original proportions are preserved
+                            <br />• The first image will be the main product image shown in listings
+                            <br />• Supported formats: JPG, PNG, WebP
+                            <br />• For best results, use high-resolution images with good lighting
+                          </p>
                         </div>
                       </div>
                     )}

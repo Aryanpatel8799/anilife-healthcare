@@ -4,6 +4,7 @@ import { inquiryService } from '../services/inquiry';
 import { validateContactForm } from '../utils/validation';
 import toast from 'react-hot-toast';
 import { ButtonLoader } from '../components/Loader';
+import SEO from '../components/SEO';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -65,7 +66,14 @@ const Contact = () => {
   };
 
   return (
-    <div className="page-container">
+    <>
+      <SEO 
+        title="Contact Us"
+        description="Contact AniLife Healthcare for animal nutrition supplements. Located in Visnagar, Gujarat. Call +91 93273 20094 or email Anilifehelthcare@gmail.com. Expert consultation for cattle, aquaculture, poultry & pet nutrition."
+        keywords="contact anilife healthcare, animal nutrition consultant, livestock supplement expert, Gujarat animal health contact, cattle supplement consultation, aquaculture nutrition advice, poultry supplement inquiry, pet nutrition expert, animal health consultation, veterinary supplement support, livestock nutrition advice, farm animal health contact, commercial animal nutrition, bulk supplement inquiry"
+        url="/contact"
+      />
+      <div className="page-container">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 via-white to-primary-100 py-16">
         <div className="max-width section-padding">
@@ -89,20 +97,20 @@ const Contact = () => {
               {
                 icon: Phone,
                 title: "Call Us",
-                info: "+91 98765 43210",
+                info: "+91 93273 20094",
                 subtitle: "Mon-Sat 9:00 AM - 6:00 PM"
               },
               {
                 icon: Mail,
                 title: "Email Us",
-                info: "info@anilife.com",
+                info: "Anilifehelthcare@gmail.com",
                 subtitle: "We'll respond within 24 hours"
               },
               {
                 icon: MapPin,
                 title: "Visit Us",
-                info: "Mumbai, Maharashtra",
-                subtitle: "123 Agriculture Street"
+                info: "Visnagar , Gujarat",
+                subtitle: "27-Sadguru estate,depan road visnagar,Gujarat 384315"
               },
               {
                 icon: Clock,
@@ -178,7 +186,7 @@ const Contact = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       className={`input-field ${errors.phone ? 'border-red-500' : ''}`}
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 93273 20094"
                     />
                     {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                   </div>
@@ -250,21 +258,21 @@ const Contact = () => {
                     <Phone className="w-5 h-5 text-primary-500" />
                     <div>
                       <p className="font-medium text-secondary-800">Sales Inquiry</p>
-                      <p className="text-primary-600">+91 98765 43210</p>
+                      <p className="text-primary-600">+91 93273 20094</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Phone className="w-5 h-5 text-primary-500" />
                     <div>
                       <p className="font-medium text-secondary-800">Technical Support</p>
-                      <p className="text-primary-600">+91 98765 43211</p>
+                      <p className="text-primary-600">+91 93273 20094</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="w-5 h-5 text-primary-500" />
                     <div>
                       <p className="font-medium text-secondary-800">General Inquiries</p>
-                      <p className="text-primary-600">info@anilife.com</p>
+                      <p className="text-primary-600">anilifehelthcare@gmail.com</p>
                     </div>
                   </div>
                 </div>
@@ -318,29 +326,71 @@ const Contact = () => {
               Visit Our Office
             </h2>
             <p className="text-lg text-secondary-600">
-              Located in the heart of Mumbai's agricultural district
+              Located in Visnagar, Gujarat - Find us easily with the map below
             </p>
           </div>
 
-          {/* Placeholder for map - in real implementation, you would use Google Maps or similar */}
-          <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-16 h-16 text-primary-500 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-secondary-800 mb-2">
-                Anilife Healthcare
-              </h3>
-              <p className="text-secondary-600 mb-2">
-                123 Agriculture Street, Farm District<br />
-                Mumbai, Maharashtra 400001
+          {/* Google Maps Embed */}
+          <div className="rounded-lg overflow-hidden shadow-lg">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.123456789!2d72.529902!3d23.740691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDQ0JzI2LjUiTiA3MsKwMzEnNDcuNiJF!5e0!3m2!1sen!2sin!4v1726594800000!5m2!1sen!2sin"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Anilife Healthcare Location"
+              className="w-full h-96"
+            ></iframe>
+          </div>
+          
+          {/* Location Info Card */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="card text-center">
+              <MapPin className="w-8 h-8 text-primary-500 mx-auto mb-3" />
+              <h3 className="text-lg font-semibold text-secondary-800 mb-2">Our Address</h3>
+              <p className="text-secondary-600">
+                27-Sadguru estate,<br />
+                Depan road, Visnagar,<br />
+                Gujarat 384315
               </p>
-              <button className="btn-primary">
-                Get Directions
-              </button>
             </div>
+            
+            <div className="card text-center">
+              <Phone className="w-8 h-8 text-primary-500 mx-auto mb-3" />
+              <h3 className="text-lg font-semibold text-secondary-800 mb-2">Contact Number</h3>
+              <p className="text-secondary-600">
+                +91 93273 20094
+              </p>
+            </div>
+            
+            <div className="card text-center">
+              <Clock className="w-8 h-8 text-primary-500 mx-auto mb-3" />
+              <h3 className="text-lg font-semibold text-secondary-800 mb-2">Business Hours</h3>
+              <p className="text-secondary-600">
+                Monday - Saturday<br />
+                9:00 AM - 6:00 PM
+              </p>
+            </div>
+          </div>
+          
+          {/* Get Directions Button */}
+          <div className="text-center mt-8">
+            <a
+              href="https://maps.app.goo.gl/LoFtpPiv5CH9N1wz8"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary inline-flex items-center"
+            >
+              <MapPin className="w-5 h-5 mr-2" />
+              Get Directions
+            </a>
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

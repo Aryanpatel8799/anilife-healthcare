@@ -6,6 +6,7 @@ import {
   Stethoscope, Leaf, Target, TrendingUp, Clock, Globe,
   Fish, Bird, Dog, Zap, Building2, FlaskConical, Factory
 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const Home = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -35,7 +36,14 @@ const Home = () => {
   ];
 
   return (
-    <div className="page-container">
+    <>
+      <SEO 
+        title="Home"
+        description="AniLife Healthcare - Leading animal nutrition supplement company specializing in high-quality supplements for cattle, aquaculture, poultry, and pets. Based in Visnagar, Gujarat with international exports."
+        keywords="animal nutrition supplements, cattle supplements, aquaculture supplements, poultry supplements, pet supplements, livestock health, animal healthcare, Gujarat animal nutrition, veterinary supplements, feed additives, dairy cattle nutrition, fish farming supplements, poultry nutrition, pet health products, animal wellness solutions, livestock nutrition consultant, farm animal supplements, organic animal nutrition, export quality supplements, FSSAI approved supplements"
+        url="/"
+      />
+      <div className="page-container">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 via-white to-primary-100 py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
@@ -542,7 +550,8 @@ const Home = () => {
    
       {/* CTA Section */}
      
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -23,14 +23,14 @@ const Navbar = () => {
       {/* Main navbar */}
       <nav className="bg-white shadow-lg sticky top-0 z-40">
         <div className="max-width section-padding">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-24">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2">
-              <Heart className="w-8 h-8 text-primary-500" />
-              <div className="flex flex-col">
-                <span className="text-xl font-bold text-primary-600">AniLife</span>
-                <span className="text-xs text-secondary-600 -mt-1">Healthcare</span>
-              </div>
+            <Link to="/" className="flex items-center space-x-3">
+              <img 
+                src="/logo.png" 
+                alt="AniLife Healthcare Logo" 
+                className="h-20 w-auto"
+              />
             </Link>
 
             {/* Desktop Navigation */}
@@ -39,9 +39,9 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`text-sm font-medium transition-colors duration-200 ${
+                  className={`text-base font-medium transition-colors duration-200 py-2 ${
                     isActive(item.href)
-                      ? 'text-primary-600 border-b-2 border-primary-500 pb-1'
+                      ? 'text-primary-600 border-b-2 border-primary-500'
                       : 'text-secondary-700 hover:text-primary-600'
                   }`}
                 >
@@ -52,12 +52,12 @@ const Navbar = () => {
 
             {/* Admin Link (Desktop) */}
             <div className="hidden md:flex items-center space-x-4">
-              <Link
+              {/* <Link
                 to="/admin/login"
                 className="text-sm font-medium text-secondary-700 hover:text-primary-600 transition-colors duration-200"
               >
                 Admin
-              </Link>
+              </Link> */}
               <Link
                 to="/contact"
                 className="btn-primary text-sm"
@@ -96,13 +96,13 @@ const Navbar = () => {
                   </Link>
                 ))}
                 <div className="border-t border-secondary-200 pt-3 mt-3">
-                  <Link
+                  {/* <Link
                     to="/admin/login"
                     className="block px-3 py-2 text-base font-medium text-secondary-700 hover:text-primary-600 hover:bg-primary-50 rounded-md"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Admin Login
-                  </Link>
+                  </Link> */}
                   <Link
                     to="/contact"
                     className="block px-3 py-2 mt-2"

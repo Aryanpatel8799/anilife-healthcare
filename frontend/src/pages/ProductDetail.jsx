@@ -22,6 +22,7 @@ import { productService } from '../services/product';
 import { inquiryService } from '../services/inquiry';
 import { formatPrice, formatDate } from '../utils/helpers';
 import { Loader } from '../components/Loader';
+import SEO from '../components/SEO';
 import toast from 'react-hot-toast';
 
 const ProductDetail = () => {
@@ -198,7 +199,16 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+      <SEO 
+        title={product?.name || 'Product Details'}
+        description={product?.productDescription || product?.description || `${product?.name} - High-quality animal nutrition supplement from AniLife Healthcare. Expert formulated for optimal animal health and performance.`}
+        keywords={`${product?.name}, ${product?.category}, animal nutrition supplement, livestock supplement, ${product?.category} nutrition, AniLife Healthcare products, veterinary supplements, animal health products, feed supplements, organic animal nutrition`}
+        url={`/products/${product?._id}`}
+        image={product?.images?.[0] || '/logo.png'}
+        type="product"
+      />
+      <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -220,11 +230,11 @@ const ProductDetail = () => {
           {/* Enhanced Product Image Gallery */}
           <div className="space-y-4">
             {/* Main Image */}
-            <div className="relative bg-white rounded-lg shadow-md overflow-hidden group">
+            <div className="relative bg-gray-50 rounded-lg shadow-md overflow-hidden group">
               <img
                 src={getCurrentImage().url}
                 alt={getCurrentImage().alt}
-                className="w-full h-96 object-cover cursor-zoom-in"
+                className="w-full h-96 object-contain cursor-zoom-in p-4"
                 onClick={() => setShowImageModal(true)}
               />
               
@@ -278,7 +288,7 @@ const ProductDetail = () => {
                     <img
                       src={image.url}
                       alt={image.alt}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain p-1 bg-white"
                     />
                   </button>
                 ))}
@@ -315,82 +325,12 @@ const ProductDetail = () => {
                 <span className="inline-block px-3 py-1 bg-primary-100 text-primary-700 text-sm rounded-full">
                   {product.category}
                 </span>
-                <div className="flex items-center">
-                  <div className="flex items-center">
-                    {[...Array(5)].map((_, i) => (
-                      <Star 
-                        key={i}
-                        className={`h-4 w-4 ${i < 4 ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
-                      />
-                    ))}
-                  </div>
-                  <span className="ml-2 text-sm text-gray-600">(4.2) • 127 reviews</span>
-                </div>
+                
               </div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-              <div className="text-3xl font-bold text-primary-600 mb-4">
-                {product.price ? formatPrice(product.price) : 'Contact for Price'}
-              </div>
-              
-              {/* Stock Status */}
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="flex items-center text-green-600">
-                  <Check className="h-4 w-4 mr-1" />
-                  <span className="text-sm font-medium">In Stock</span>
-                </div>
-                <div className="flex items-center text-gray-600">
-                  <Truck className="h-4 w-4 mr-1" />
-                  <span className="text-sm">Free shipping on orders over ₹500</span>
-                </div>
-              </div>
-              
-              {/* Quantity Selector */}
-              <div className="flex items-center space-x-4 mb-6">
-                <label className="text-sm font-medium text-gray-700">Quantity:</label>
-                <div className="flex items-center border rounded-lg">
-                  <button
-                    onClick={() => setSelectedQuantity(Math.max(1, selectedQuantity - 1))}
-                    className="px-3 py-2 hover:bg-gray-100"
-                  >
-                    -
-                  </button>
-                  <span className="px-4 py-2 border-x">{selectedQuantity}</span>
-                  <button
-                    onClick={() => setSelectedQuantity(selectedQuantity + 1)}
-                    className="px-3 py-2 hover:bg-gray-100"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
             </div>
 
-            {/* Trust Badges */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="flex items-center p-4 bg-green-50 rounded-lg">
-                <Award className="h-6 w-6 text-green-600 mr-3" />
-                <div>
-                  <p className="font-medium text-green-900">Certified Quality</p>
-                  <p className="text-sm text-green-700">Veterinary approved</p>
-                </div>
-              </div>
-              <div className="flex items-center p-4 bg-blue-50 rounded-lg">
-                <Clock className="h-6 w-6 text-blue-600 mr-3" />
-                <div>
-                  <p className="font-medium text-blue-900">Fast Delivery</p>
-                  <p className="text-sm text-blue-700">Same day shipping</p>
-                </div>
-              </div>
-              <div className="flex items-center p-4 bg-purple-50 rounded-lg">
-                <Users className="h-6 w-6 text-purple-600 mr-3" />
-                <div>
-                  <p className="font-medium text-purple-900">Expert Support</p>
-                  <p className="text-sm text-purple-700">24/7 assistance</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Product Tabs */}
+            
             <div>
               <div className="border-b border-gray-200">
                 <nav className="-mb-px flex space-x-8">
@@ -524,11 +464,13 @@ const ProductDetail = () => {
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
                   onClick={() => navigate(`/products/${relatedProduct._id}`)}
                 >
-                  <img
-                    src={relatedProduct.imageUrl || 'https://via.placeholder.com/300x200?text=No+Image'}
-                    alt={relatedProduct.name}
-                    className="w-full h-48 object-cover"
-                  />
+                  <div className="bg-gray-50 p-4">
+                    <img
+                      src={relatedProduct.imageUrl || 'https://via.placeholder.com/300x200?text=No+Image'}
+                      alt={relatedProduct.name}
+                      className="w-full h-40 object-contain"
+                    />
+                  </div>
                   <div className="p-4">
                     <h3 className="font-semibold text-gray-900 mb-2">{relatedProduct.name}</h3>
                     <p className="text-gray-600 text-sm mb-3 line-clamp-2">{relatedProduct.description}</p>
@@ -674,7 +616,8 @@ const ProductDetail = () => {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 

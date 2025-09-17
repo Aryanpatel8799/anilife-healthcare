@@ -211,22 +211,22 @@ const ProductDetail = () => {
       <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb */}
       <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
           <button
             onClick={() => navigate('/products')}
             className="flex items-center text-primary-600 hover:text-primary-700 mb-2"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Products
+            <span className="text-sm sm:text-base">Back to Products</span>
           </button>
-          <nav className="text-sm text-gray-500">
+          <nav className="text-xs sm:text-sm text-gray-500">
             <span>Products</span> / <span>{product.category}</span> / <span className="text-gray-900">{product.name}</span>
           </nav>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
           {/* Enhanced Product Image Gallery */}
           <div className="space-y-4">
             {/* Main Image */}
@@ -234,7 +234,7 @@ const ProductDetail = () => {
               <img
                 src={getCurrentImage().url}
                 alt={getCurrentImage().alt}
-                className="w-full h-96 object-contain cursor-zoom-in p-4"
+                className="w-full h-64 sm:h-80 lg:h-96 object-contain cursor-zoom-in p-2 sm:p-4"
                 onClick={() => setShowImageModal(true)}
               />
               
@@ -243,15 +243,15 @@ const ProductDetail = () => {
                 <>
                   <button
                     onClick={prevImage}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-1.5 sm:p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                   >
-                    <ChevronLeft className="h-5 w-5" />
+                    <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
                   </button>
                   <button
                     onClick={nextImage}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-1.5 sm:p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                   >
-                    <ChevronRight className="h-5 w-5" />
+                    <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
                   </button>
                 </>
               )}
@@ -259,14 +259,14 @@ const ProductDetail = () => {
               {/* Zoom Icon */}
               <button
                 onClick={() => setShowImageModal(true)}
-                className="absolute top-4 right-4 bg-black bg-opacity-50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-black bg-opacity-50 text-white p-1.5 sm:p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
               >
-                <ZoomIn className="h-4 w-4" />
+                <ZoomIn className="h-3 w-3 sm:h-4 sm:w-4" />
               </button>
               
               {/* Image Counter */}
               {product?.images && product.images.length > 1 && (
-                <div className="absolute bottom-4 right-4 bg-black bg-opacity-75 text-white px-3 py-1 rounded-full text-sm">
+                <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-black bg-opacity-75 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">
                   {currentImageIndex + 1} / {product.images.length}
                 </div>
               )}
@@ -274,12 +274,12 @@ const ProductDetail = () => {
             
             {/* Thumbnail Gallery */}
             {product?.images && product.images.length > 1 && (
-              <div className="flex space-x-2 overflow-x-auto pb-2">
+              <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
                 {product.images.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                    className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-all ${
                       currentImageIndex === index 
                         ? 'border-primary-600 ring-2 ring-primary-200' 
                         : 'border-gray-300 hover:border-primary-400'
@@ -296,17 +296,17 @@ const ProductDetail = () => {
             )}
             
             {/* Action Buttons */}
-            <div className="flex space-x-4">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
               <button
                 onClick={shareProduct}
-                className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base"
               >
                 <Share2 className="h-4 w-4 mr-2" />
                 Share
               </button>
               <button 
                 onClick={toggleWishlist}
-                className={`flex items-center justify-center px-4 py-2 border rounded-lg transition-colors ${
+                className={`flex items-center justify-center px-4 py-2 border rounded-lg transition-colors text-sm sm:text-base ${
                   isWishlisted 
                     ? 'border-red-300 bg-red-50 text-red-600' 
                     : 'border-gray-300 hover:bg-gray-50'
@@ -319,26 +319,26 @@ const ProductDetail = () => {
           </div>
 
           {/* Enhanced Product Details */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="inline-block px-3 py-1 bg-primary-100 text-primary-700 text-sm rounded-full">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 space-y-2 sm:space-y-0">
+                <span className="inline-block px-3 py-1 bg-primary-100 text-primary-700 text-sm rounded-full w-fit">
                   {product.category}
                 </span>
                 
               </div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 leading-tight">{product.name}</h1>
             </div>
 
             
             <div>
               <div className="border-b border-gray-200">
-                <nav className="-mb-px flex space-x-8">
+                <nav className="-mb-px flex space-x-4 sm:space-x-8 overflow-x-auto scrollbar-hide">
                   {['description', 'product-details', 'uses', 'benefits', 'features', 'specifications'].map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`py-2 px-1 border-b-2 font-medium text-sm capitalize ${
+                      className={`py-2 px-1 border-b-2 font-medium text-xs sm:text-sm capitalize whitespace-nowrap ${
                         activeTab === tab
                           ? 'border-primary-500 text-primary-600'
                           : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -350,10 +350,10 @@ const ProductDetail = () => {
                 </nav>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-4 sm:mt-6">
                 {activeTab === 'description' && (
                   <div className="prose max-w-none">
-                    <p className="text-gray-700 leading-relaxed">{product.description}</p>
+                    <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{product.description}</p>
                   </div>
                 )}
 
@@ -402,21 +402,21 @@ const ProductDetail = () => {
                 )}
 
                 {activeTab === 'specifications' && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4">
                     <div className="space-y-2">
-                      <h4 className="font-medium text-gray-900">Product Details</h4>
-                      <div className="text-sm space-y-1">
-                        <div className="flex justify-between">
+                      <h4 className="font-medium text-gray-900 text-sm sm:text-base">Product Details</h4>
+                      <div className="text-xs sm:text-sm space-y-1">
+                        <div className="flex justify-between py-1">
                           <span className="text-gray-600">Category:</span>
-                          <span className="text-gray-900">{product.category}</span>
+                          <span className="text-gray-900 text-right">{product.category}</span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between py-1">
                           <span className="text-gray-600">SKU:</span>
-                          <span className="text-gray-900">ANL-{product._id.slice(-6).toUpperCase()}</span>
+                          <span className="text-gray-900 text-right">ANL-{product._id.slice(-6).toUpperCase()}</span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between py-1">
                           <span className="text-gray-600">Availability:</span>
-                          <span className="text-green-600">In Stock</span>
+                          <span className="text-green-600 text-right">In Stock</span>
                         </div>
                       </div>
                     </div>
@@ -455,26 +455,26 @@ const ProductDetail = () => {
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Related Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="mt-8 sm:mt-12 lg:mt-16">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">Related Products</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {relatedProducts.map((relatedProduct) => (
                 <div
                   key={relatedProduct._id}
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
                   onClick={() => navigate(`/products/${relatedProduct._id}`)}
                 >
-                  <div className="bg-gray-50 p-4">
+                  <div className="bg-gray-50 p-3 sm:p-4">
                     <img
                       src={relatedProduct.imageUrl || 'https://via.placeholder.com/300x200?text=No+Image'}
                       alt={relatedProduct.name}
-                      className="w-full h-40 object-contain"
+                      className="w-full h-32 sm:h-40 object-contain"
                     />
                   </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 mb-2">{relatedProduct.name}</h3>
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">{relatedProduct.description}</p>
-                    <div className="flex items-center justify-between">
+                  <div className="p-3 sm:p-4">
+                    <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">{relatedProduct.name}</h3>
+                    <p className="text-gray-600 text-xs sm:text-sm mb-3 line-clamp-2">{relatedProduct.description}</p>
+                    <div className="flex items-center justify-between text-xs sm:text-sm">
                       <span className="text-primary-600 font-bold">
                         {relatedProduct.price ? formatPrice(relatedProduct.price) : 'Contact for Price'}
                       </span>
@@ -491,13 +491,13 @@ const ProductDetail = () => {
       {/* Inquiry Modal */}
       {showInquiryForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
+          <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto mx-4">
+            <div className="p-4 sm:p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-900">Product Inquiry</h3>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900">Product Inquiry</h3>
                 <button
                   onClick={() => setShowInquiryForm(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-400 hover:text-gray-600 text-xl sm:text-2xl"
                 >
                   ×
                 </button>
@@ -557,18 +557,18 @@ const ProductDetail = () => {
                   />
                 </div>
                 
-                <div className="flex space-x-3">
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                   <button
                     type="button"
                     onClick={() => setShowInquiryForm(false)}
-                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm sm:text-base"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={inquiryLoading}
-                    className="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 disabled:opacity-50"
+                    className="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 disabled:opacity-50 text-sm sm:text-base"
                   >
                     {inquiryLoading ? 'Sending...' : 'Send Inquiry'}
                   </button>
@@ -581,34 +581,34 @@ const ProductDetail = () => {
 
       {/* Image Modal */}
       {showImageModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50">
-          <div className="relative max-w-4xl max-h-full">
+        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-2 sm:p-4 z-50">
+          <div className="relative max-w-4xl max-h-full w-full">
             <button
               onClick={() => setShowImageModal(false)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 text-xl"
+              className="absolute -top-8 sm:-top-12 right-0 text-white hover:text-gray-300 text-xl sm:text-2xl"
             >
               ×
             </button>
             <img
               src={getCurrentImage().url}
               alt={getCurrentImage().alt}
-              className="max-w-full max-h-[80vh] object-contain"
+              className="max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain mx-auto"
             />
             {product?.images && product.images.length > 1 && (
               <>
                 <button
                   onClick={prevImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75"
+                  className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 sm:p-3 rounded-full hover:bg-opacity-75"
                 >
-                  <ChevronLeft className="h-6 w-6" />
+                  <ChevronLeft className="h-4 w-4 sm:h-6 sm:w-6" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75"
+                  className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 sm:p-3 rounded-full hover:bg-opacity-75"
                 >
-                  <ChevronRight className="h-6 w-6" />
+                  <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6" />
                 </button>
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-75 text-white px-4 py-2 rounded-full">
+                <div className="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-75 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sm sm:text-base">
                   {currentImageIndex + 1} / {product.images.length}
                 </div>
               </>

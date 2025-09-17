@@ -350,9 +350,9 @@ const AdminDashboard = () => {
 
   // Tab Navigation
   const tabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
-    { id: 'products', label: 'Products', icon: Package },
-    { id: 'inquiries', label: 'Inquiries', icon: MessageSquare },
+    { id: 'dashboard', label: 'Dashboard', shortLabel: 'Home', icon: BarChart3 },
+    { id: 'products', label: 'Products', shortLabel: 'Products', icon: Package },
+    { id: 'inquiries', label: 'Inquiries', shortLabel: 'Messages', icon: MessageSquare },
   ];
 
   return (
@@ -360,40 +360,45 @@ const AdminDashboard = () => {
       {/* Enhanced Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-white" />
+          <div className="flex justify-between items-center h-14 sm:h-16">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary-500 rounded-lg flex items-center justify-center">
+                  <BarChart3 className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <div>
-                  <h1 className="text-xl font-bold text-secondary-900">
+                <div className="hidden sm:block">
+                  <h1 className="text-lg sm:text-xl font-bold text-secondary-900">
                     Anilife Healthcare Admin
                   </h1>
-                  <p className="text-sm text-secondary-600">
+                  <p className="text-xs sm:text-sm text-secondary-600">
                     Welcome back, {admin?.name || 'Admin'}
                   </p>
+                </div>
+                <div className="sm:hidden">
+                  <h1 className="text-sm font-bold text-secondary-900">
+                    Admin
+                  </h1>
                 </div>
               </div>
             </div>
             
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               {/* Notifications */}
               <div className="relative">
-                <button className="p-2 text-secondary-600 hover:text-secondary-900 hover:bg-gray-100 rounded-md transition-colors relative">
-                  <MessageSquare className="w-5 h-5" />
+                <button className="p-1.5 sm:p-2 text-secondary-600 hover:text-secondary-900 hover:bg-gray-100 rounded-md transition-colors relative">
+                  <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
                   {dashboardData?.overview?.pendingInquiries > 0 && (
-                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                    <span className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-3 h-3 sm:w-4 sm:h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
                       {dashboardData.overview.pendingInquiries}
                     </span>
                   )}
                 </button>
               </div>
 
-              {/* Quick Actions */}
+              {/* Quick Actions - Hide on mobile */}
               <button
                 onClick={() => setActiveTab('products')}
-                className="p-2 text-secondary-600 hover:text-secondary-900 hover:bg-gray-100 rounded-md transition-colors"
+                className="hidden sm:block p-2 text-secondary-600 hover:text-secondary-900 hover:bg-gray-100 rounded-md transition-colors"
                 title="Manage Products"
               >
                 <Package className="w-5 h-5" />
@@ -401,26 +406,26 @@ const AdminDashboard = () => {
 
               <button
                 onClick={() => window.location.reload()}
-                className="p-2 text-secondary-600 hover:text-secondary-900 hover:bg-gray-100 rounded-md transition-colors"
+                className="hidden sm:block p-2 text-secondary-600 hover:text-secondary-900 hover:bg-gray-100 rounded-md transition-colors"
                 title="Refresh"
               >
                 <RefreshCw className="w-5 h-5" />
               </button>
 
               {/* Admin Profile */}
-              <div className="flex items-center space-x-3 border-l pl-4">
-                <div className="text-right">
+              <div className="flex items-center space-x-2 sm:space-x-3 border-l pl-2 sm:pl-4">
+                <div className="text-right hidden sm:block">
                   <p className="text-sm font-medium text-secondary-900">{admin?.name || 'Admin'}</p>
                   <p className="text-xs text-secondary-500">{admin?.email || 'admin@anilife.com'}</p>
                 </div>
-                <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                  <Users className="w-4 h-4 text-primary-600" />
+                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                  <Users className="w-3 h-3 sm:w-4 sm:h-4 text-primary-600" />
                 </div>
               </div>
 
               <button
                 onClick={logout}
-                className="btn-secondary text-sm"
+                className="btn-secondary text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-2"
               >
                 Logout
               </button>
@@ -429,22 +434,23 @@ const AdminDashboard = () => {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Tab Navigation */}
-        <div className="border-b border-gray-200 mb-8">
-          <nav className="-mb-px flex space-x-8">
+        <div className="border-b border-gray-200 mb-4 sm:mb-8">
+          <nav className="-mb-px flex space-x-4 sm:space-x-8 overflow-x-auto scrollbar-hide">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-2 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 ${
+                className={`py-2 px-1 border-b-2 font-medium text-xs sm:text-sm flex items-center space-x-1 sm:space-x-2 whitespace-nowrap ${
                   activeTab === tab.id
                     ? 'border-primary-500 text-primary-600'
                     : 'border-transparent text-secondary-500 hover:text-secondary-700 hover:border-gray-300'
                 }`}
               >
-                <tab.icon className="w-5 h-5" />
-                <span>{tab.label}</span>
+                <tab.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="hidden sm:inline">{tab.label}</span>
+                <span className="sm:hidden">{tab.shortLabel || tab.label}</span>
               </button>
             ))}
           </nav>
@@ -455,9 +461,9 @@ const AdminDashboard = () => {
 
         {/* Dashboard Tab */}
         {activeTab === 'dashboard' && !loading && (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {[
                 {
                   title: 'Total Products',
@@ -492,18 +498,18 @@ const AdminDashboard = () => {
                   trend: 'up'
                 }
               ].map((stat, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
+                <div key={index} className="bg-white rounded-lg shadow-sm border p-3 sm:p-6 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className={`${stat.color} p-3 rounded-lg`}>
-                        <stat.icon className="w-6 h-6 text-white" />
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <div className={`${stat.color} p-2 sm:p-3 rounded-lg`}>
+                        <stat.icon className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
                       </div>
-                      <div>
-                        <p className="text-sm font-medium text-secondary-600 mb-1">{stat.title}</p>
-                        <p className="text-2xl font-bold text-secondary-900">{stat.value}</p>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs sm:text-sm font-medium text-secondary-600 mb-1 truncate">{stat.title}</p>
+                        <p className="text-lg sm:text-2xl font-bold text-secondary-900">{stat.value}</p>
                       </div>
                     </div>
-                    <div className="text-right">
+                    <div className="text-right hidden sm:block">
                       <p className={`text-sm font-medium ${
                         stat.trend === 'up' ? 'text-green-600' : 'text-red-600'
                       }`}>
@@ -639,16 +645,16 @@ const AdminDashboard = () => {
 
         {/* Products Tab */}
         {activeTab === 'products' && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Products Header */}
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
               <div>
-                <h2 className="text-2xl font-bold text-secondary-900">Products Management</h2>
-                <p className="text-secondary-600 mt-1">Manage your product catalog and inventory</p>
+                <h2 className="text-xl sm:text-2xl font-bold text-secondary-900">Products Management</h2>
+                <p className="text-secondary-600 mt-1 text-sm sm:text-base">Manage your product catalog and inventory</p>
               </div>
               <button 
                 onClick={() => setShowAddProductModal(true)}
-                className="btn-primary flex items-center"
+                className="btn-primary flex items-center text-sm sm:text-base"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Add Product
@@ -656,23 +662,23 @@ const AdminDashboard = () => {
             </div>
 
             {/* Enhanced Search and Filter */}
-            <div className="bg-white rounded-lg shadow-sm border p-6">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
                   <input
                     type="text"
                     placeholder="Search products..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 input-field"
+                    className="pl-8 sm:pl-10 input-field text-sm sm:text-base"
                   />
                 </div>
                 
                 <select
                   value={filterCategory}
                   onChange={(e) => setFilterCategory(e.target.value)}
-                  className="input-field"
+                  className="input-field text-sm sm:text-base"
                 >
                   <option value="all">All Categories</option>
                   {dashboardData?.charts?.productsByCategory && 
@@ -685,7 +691,7 @@ const AdminDashboard = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="input-field"
+                  className="input-field text-sm sm:text-base"
                 >
                   <option value="newest">Newest First</option>
                   <option value="oldest">Oldest First</option>
@@ -753,7 +759,8 @@ const AdminDashboard = () => {
             {/* Products Table */}
             {!loading && (
               <div className="bg-white shadow-sm border rounded-lg overflow-hidden">
-                <div className="overflow-x-auto">
+                {/* Desktop Table View */}
+                <div className="hidden lg:block overflow-x-auto">
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
@@ -862,27 +869,114 @@ const AdminDashboard = () => {
                     </tbody>
                   </table>
                 </div>
+
+                {/* Mobile Card View */}
+                <div className="lg:hidden divide-y divide-gray-200">
+                  {currentProducts.length > 0 ? currentProducts.map((product) => (
+                    <div key={product._id} className="p-4 hover:bg-gray-50">
+                      <div className="flex items-start space-x-3">
+                        <div className="flex-shrink-0">
+                          <img
+                            className="h-12 w-12 rounded-lg object-cover"
+                            src={product.image || 'https://via.placeholder.com/48x48?text=No+Image'}
+                            alt={product.name}
+                            onError={(e) => {
+                              e.target.src = 'https://via.placeholder.com/48x48?text=No+Image';
+                            }}
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h3 className="text-sm font-medium text-secondary-900 truncate">
+                                {product.name}
+                              </h3>
+                              <p className="text-xs text-secondary-500 mt-1 line-clamp-2">
+                                {product.description}
+                              </p>
+                              <div className="flex items-center space-x-2 mt-2">
+                                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-100 text-primary-800">
+                                  {product.category}
+                                </span>
+                                <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                                  product.isActive !== false ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                }`}>
+                                  {product.isActive !== false ? 'Active' : 'Inactive'}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="flex flex-col items-end space-y-2">
+                              <span className="text-sm font-semibold text-secondary-900">
+                                {formatPrice(product.price)}
+                              </span>
+                              <div className="flex items-center space-x-1">
+                                <button
+                                  onClick={() => {
+                                    setSelectedProduct(product);
+                                    setShowProductModal(true);
+                                  }}
+                                  className="text-primary-600 hover:text-primary-900 p-1 rounded hover:bg-primary-50"
+                                  title="View Details"
+                                >
+                                  <Eye className="w-4 h-4" />
+                                </button>
+                                <button 
+                                  onClick={() => handleEditProduct(product)}
+                                  className="text-indigo-600 hover:text-indigo-900 p-1 rounded hover:bg-indigo-50"
+                                  title="Edit Product"
+                                >
+                                  <Edit className="w-4 h-4" />
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteProduct(product._id)}
+                                  className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
+                                  title="Delete Product"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )) : (
+                    <div className="p-8 text-center">
+                      <Package className="w-12 h-12 text-secondary-300 mb-3 mx-auto" />
+                      <p className="text-secondary-500 mb-2">No products found</p>
+                      <button 
+                        onClick={() => setShowAddProductModal(true)}
+                        className="text-primary-600 hover:text-primary-700 text-sm"
+                      >
+                        Add your first product
+                      </button>
+                    </div>
+                  )}
+                </div>
                 
                 {/* Pagination */}
                 {filteredProducts.length > itemsPerPage && (
-                  <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                    <div className="flex-1 flex justify-between sm:hidden">
+                  <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200">
+                    <div className="flex-1 flex justify-between lg:hidden">
                       <button
                         onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                         disabled={currentPage === 1}
-                        className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                        className="relative inline-flex items-center px-3 py-2 border border-gray-300 text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
                       >
                         Previous
                       </button>
+                      <span className="text-xs text-gray-700 flex items-center">
+                        {currentPage} of {totalPages(filteredProducts)}
+                      </span>
                       <button
                         onClick={() => setCurrentPage(Math.min(totalPages(filteredProducts), currentPage + 1))}
                         disabled={currentPage === totalPages(filteredProducts)}
-                        className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                        className="relative inline-flex items-center px-3 py-2 border border-gray-300 text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
                       >
                         Next
                       </button>
                     </div>
-                    <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-between">
                       <div>
                         <p className="text-sm text-gray-700">
                           Showing <span className="font-medium">{(currentPage - 1) * itemsPerPage + 1}</span> to{' '}
@@ -934,12 +1028,12 @@ const AdminDashboard = () => {
 
         {/* Inquiries Tab */}
         {activeTab === 'inquiries' && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Inquiries Header */}
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
               <div>
-                <h2 className="text-2xl font-bold text-secondary-900">Inquiries Management</h2>
-                <p className="text-secondary-600 mt-1">Manage customer inquiries and support requests</p>
+                <h2 className="text-xl sm:text-2xl font-bold text-secondary-900">Inquiries Management</h2>
+                <p className="text-secondary-600 mt-1 text-sm sm:text-base">Manage customer inquiries and support requests</p>
               </div>
               <div className="flex items-center space-x-3">
                 <button className="btn-secondary flex items-center">

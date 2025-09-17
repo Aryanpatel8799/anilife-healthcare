@@ -1,0 +1,103 @@
+{
+  "business": {
+    "name": "AniLife Healthcare",
+    "legalName": "Anilife Healthcare",
+    "foundingYear": "2024",
+    "description": "Leading animal nutrition supplement company specializing in high-quality supplements for cattle, aquaculture, poultry, and pets",
+    "tagline": "Excellence in Animal Wellness",
+    "industry": "Animal Nutrition & Healthcare",
+    "headquarters": "Visnagar, Gujarat, India"
+  },
+  "contact": {
+    "phone": "+91 93273 20094",
+    "email": "Anilifehelthcare@gmail.com",
+    "website": "https://anilifehealthcare.com",
+    "address": {
+      "street": "27-Sadguru estate, Depan road",
+      "city": "Visnagar",
+      "state": "Gujarat",
+      "postalCode": "384315",
+      "country": "India",
+      "latitude": "23.740691",
+      "longitude": "72.529902"
+    },
+    "businessHours": {
+      "monday": "9:00 AM - 6:00 PM",
+      "tuesday": "9:00 AM - 6:00 PM",
+      "wednesday": "9:00 AM - 6:00 PM",
+      "thursday": "9:00 AM - 6:00 PM",
+      "friday": "9:00 AM - 6:00 PM",
+      "saturday": "9:00 AM - 6:00 PM",
+      "sunday": "Closed"
+    }
+  },
+  "services": [
+    "Cattle Nutrition Supplements",
+    "Aquaculture Feed Solutions",
+    "Poultry Nutrition Products",
+    "Pet Health Supplements",
+    "Livestock Feed Additives",
+    "Veterinary Supplements",
+    "Animal Wellness Solutions"
+  ],
+  "targetMarkets": [
+    "Dairy Farmers",
+    "Livestock Producers",
+    "Aquaculture Farms",
+    "Poultry Farms",
+    "Pet Owners",
+    "Veterinarians",
+    "Feed Manufacturers",
+    "Agricultural Cooperatives"
+  ],
+  "keywords": {
+    "primary": [
+      "animal nutrition supplements",
+      "cattle supplements",
+      "aquaculture supplements", 
+      "poultry supplements",
+      "pet supplements",
+      "livestock health",
+      "animal healthcare"
+    ],
+    "secondary": [
+      "Gujarat animal nutrition",
+      "veterinary supplements",
+      "dairy cattle nutrition",
+      "fish farming supplements",
+      "poultry nutrition",
+      "pet health products",
+      "animal wellness solutions",
+      "livestock supplement supplier"
+    ],
+    "long_tail": [
+      "high quality animal nutrition supplements Gujarat",
+      "export quality cattle supplements India",
+      "professional aquaculture nutrition solutions",
+      "organic livestock feed additives",
+      "veterinary grade animal supplements",
+      "FSSAI approved animal nutrition products",
+      "bulk animal supplement supplier India"
+    ]
+  },
+  "certifications": [
+    "FSSAI License",
+    "GMP Compliance",
+    "FIEO Export Excellence",
+    "APEDA Registration"
+  ],
+  "socialMedia": {
+    "facebook": "https://www.facebook.com/anilifehealthcare",
+    "instagram": "https://www.instagram.com/anilifehealthcare",
+    "linkedin": "https://www.linkedin.com/company/anilifehealthcare",
+    "twitter": "https://www.twitter.com/anilifehealthcare"
+  },
+  "seo": {
+    "defaultTitle": "AniLife Healthcare - Leading Animal Nutrition Supplement Company",
+    "defaultDescription": "Leading animal nutrition supplement company specializing in high-quality supplements for cattle, aquaculture, poultry, and pets. Located in Visnagar, Gujarat with international exports.",
+    "defaultKeywords": "animal nutrition supplements, cattle supplements, aquaculture supplements, poultry supplements, pet supplements, livestock health, animal healthcare, Gujarat animal nutrition",
+    "ogImage": "/logo.png",
+    "favicon": "/logo.png",
+    "themeColor": "#4a7c59"
+  }
+}

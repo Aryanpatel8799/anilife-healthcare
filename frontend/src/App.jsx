@@ -15,6 +15,7 @@ import About from './pages/About';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Contact from './pages/Contact';
+import Debug from './pages/Debug';
 
 // Admin Pages
 import AdminLogin from './pages/AdminLogin';
@@ -32,13 +33,13 @@ function App() {
         >
         <div className="flex flex-col min-h-screen">
           <Routes>
-            {/* Admin routes without navbar/footer - These should match first */}
+            {/* Admin routes without navbar/footer */}
             <Route 
               path="/admin/login" 
               element={<AdminLogin />} 
             />
             <Route 
-              path="/admin/*" 
+              path="/admin/dashboard" 
               element={
                 <ProtectedRoute>
                   <AdminDashboard />
@@ -48,22 +49,68 @@ function App() {
             
             {/* Public routes with navbar/footer */}
             <Route 
-              path="/*" 
+              path="/" 
               element={
                 <>
                   <Navbar />
                   <main className="flex-grow">
-                    <Routes>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/about" element={<About />} />
-                      <Route path="/products" element={<Products />} />
-                      <Route path="/products/:id" element={<ProductDetail />} />
-                      <Route path="/contact" element={<Contact />} />
-                    </Routes>
+                    <Home />
                   </main>
                   <Footer />
                 </>
               } 
+            />
+            <Route 
+              path="/about" 
+              element={
+                <>
+                  <Navbar />
+                  <main className="flex-grow">
+                    <About />
+                  </main>
+                  <Footer />
+                </>
+              } 
+            />
+            <Route 
+              path="/products" 
+              element={
+                <>
+                  <Navbar />
+                  <main className="flex-grow">
+                    <Products />
+                  </main>
+                  <Footer />
+                </>
+              } 
+            />
+            <Route 
+              path="/products/:id" 
+              element={
+                <>
+                  <Navbar />
+                  <main className="flex-grow">
+                    <ProductDetail />
+                  </main>
+                  <Footer />
+                </>
+              } 
+            />
+            <Route 
+              path="/contact" 
+              element={
+                <>
+                  <Navbar />
+                  <main className="flex-grow">
+                    <Contact />
+                  </main>
+                  <Footer />
+                </>
+              } 
+            />
+            <Route 
+              path="/debug" 
+              element={<Debug />} 
             />
           </Routes>
           

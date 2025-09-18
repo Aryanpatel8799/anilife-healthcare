@@ -45,51 +45,101 @@ const Home = () => {
       />
       <div className="page-container">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 via-white to-primary-100 py-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
+      <section className="bg-gradient-to-br from-primary-50 via-white to-primary-100 py-16 lg:py-24 relative overflow-hidden min-h-[85vh] flex items-center">
+        {/* Background Elements */}
+        {/* <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-10 w-32 h-32 bg-primary-200 rounded-full animate-pulse-slow"></div>
           <div className="absolute bottom-20 right-10 w-24 h-24 bg-primary-300 rounded-full animate-pulse-slow delay-1000"></div>
-        </div>
+          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-100 rounded-full animate-bounce delay-500"></div>
+        </div> */}
         
-        <div className="max-width section-padding relative z-10">
-          <div className="text-center max-w-5xl mx-auto">
-            <div className="bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-medium inline-block mb-6">
-              🌟 Leading Animal Nutrition Supplement Company
-            </div>
-            <h1 className="text-5xl lg:text-7xl font-bold text-secondary-900 mb-8 leading-tight">
-              <span className="text-primary-600">AniLife</span> Healthcare
-            </h1>
-            <p className="text-2xl text-secondary-600 mb-8 leading-relaxed max-w-4xl mx-auto">
-              Excellence in animal wellness through innovative, scientifically-backed nutrition supplements for 
-              <span className="text-primary-600 font-semibold"> cattle, aquaculture, poultry, and pets</span>
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-              <Link to="/products" className="btn-primary text-lg px-10 py-4 inline-flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-                Explore Products
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <Link to="/contact" className="btn-outline text-lg px-10 py-4 inline-flex items-center justify-center shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-                Get Quote
-              </Link>
+        <div className="max-width section-padding relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Content */}
+            <div className="text-left order-2 lg:order-1">
+              <div className="bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-medium inline-block mb-6">
+                🌟 Leading Animal Nutrition Supplement Company
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-secondary-900 mb-6 leading-tight">
+                <span className="text-primary-600">AniLife</span><br />
+                Healthcare
+              </h1>
+              <p className="text-lg sm:text-xl lg:text-2xl text-secondary-600 mb-8 leading-relaxed">
+                Excellence in animal wellness through innovative, scientifically-backed nutrition supplements for 
+                <span className="text-primary-600 font-semibold"> cattle, aquaculture, poultry, and pets</span>
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 mb-10">
+                <Link to="/products" className="btn-primary text-lg px-8 py-4 inline-flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                  Explore Products
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+                <Link to="/contact" className="btn-outline text-lg px-8 py-4 inline-flex items-center justify-center shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                  Get Quote
+                </Link>
+              </div>
+              
+              {/* Key Metrics */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="text-left">
+                  <div className="text-2xl lg:text-3xl font-bold text-primary-600 mb-1">2024</div>
+                  <div className="text-sm lg:text-base text-secondary-600">Established</div>
+                </div>
+                <div className="text-left">
+                  <div className="text-2xl lg:text-3xl font-bold text-primary-600 mb-1">95%</div>
+                  <div className="text-sm lg:text-base text-secondary-600">Customer Satisfaction</div>
+                </div>
+                <div className="text-left">
+                  <div className="text-2xl lg:text-3xl font-bold text-primary-600 mb-1">Global</div>
+                  <div className="text-sm lg:text-base text-secondary-600">Reach</div>
+                </div>
+                <div className="text-left">
+                  <div className="text-2xl lg:text-3xl font-bold text-primary-600 mb-1">Expert</div>
+                  <div className="text-sm lg:text-base text-secondary-600">Team</div>
+                </div>
+              </div>
             </div>
             
-            {/* Key Metrics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600 mb-2">2024</div>
-                <div className="text-secondary-600">Established</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600 mb-2">95%</div>
-                <div className="text-secondary-600">Customer Satisfaction</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600 mb-2">Global</div>
-                <div className="text-secondary-600">Reach</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600 mb-2">Expert</div>
-                <div className="text-secondary-600">Team</div>
+            {/* Right Image */}
+            <div className="order-1 lg:order-2 relative">
+              <div className="relative">
+                {/* Main Hero Image */}
+                <div className="bg-gradient-to-br from-primary-100 to-primary-200 rounded-3xl p-8 lg:p-12 shadow-2xl">
+                  <img 
+                    src="./happy-cow-illustration-while-farmer-milking_9645-1436 2.AVIF" 
+                    alt="Animal healthcare and nutrition supplements"
+                    className="w-full h-80 lg:h-96 object-cover rounded-2xl shadow-lg"
+                  />
+                  
+                  {/* Floating Stats Cards */}
+                  <div className="absolute -top-4 -left-4 bg-white rounded-xl p-4 shadow-lg">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                        <Heart className="w-6 h-6 text-green-600" />
+                      </div>
+                      <div>
+                        <div className="font-bold text-secondary-900">500+</div>
+                        <div className="text-xs text-secondary-600">Happy Customers</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute -bottom-4 -right-4 bg-white rounded-xl p-4 shadow-lg">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <Shield className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <div>
+                        <div className="font-bold text-secondary-900">100%</div>
+                        <div className="text-xs text-secondary-600">Quality Assured</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Decorative Elements */}
+                <div className="absolute -z-10 top-8 right-8 w-32 h-32 bg-primary-200 rounded-full opacity-50"></div>
+                <div className="absolute -z-10 -bottom-8 -left-8 w-24 h-24 bg-secondary-200 rounded-full opacity-30"></div>
               </div>
             </div>
           </div>
@@ -132,12 +182,40 @@ const Home = () => {
             </div>
             
             <div className="text-center">
-              <div className="bg-gradient-to-br from-primary-100 to-primary-200 rounded-3xl p-12 relative">
-                <Heart className="w-32 h-32 text-primary-600 mx-auto mb-6" />
+              <div className="bg-gradient-to-br from-primary-100 to-primary-200 rounded-3xl p-8 lg:p-12 relative shadow-xl">
+                {/* Happy Animals Illustration */}
+                <div className="mb-6 relative">
+                  <img 
+                    src="/image.png" 
+                    alt="Happy farm animals - cattle, sheep, chickens representing AniLife Healthcare's commitment to animal wellness"
+                    className="w-full max-w-md mx-auto h-64 lg:h-80 object-contain rounded-2xl"
+                  />
+                  {/* Floating elements for enhanced visual appeal */}
+                  <div className="absolute -top-2 -right-2 bg-white rounded-full p-2 shadow-lg">
+                    <Heart className="w-6 h-6 text-red-500" />
+                  </div>
+                  <div className="absolute -bottom-2 -left-2 bg-white rounded-full p-2 shadow-lg">
+                    <Shield className="w-6 h-6 text-green-500" />
+                  </div>
+                </div>
+                
                 <h3 className="text-2xl font-bold text-secondary-800 mb-4">Partner with AniLife Healthcare</h3>
-                <p className="text-lg text-secondary-600">
+                <p className="text-lg text-secondary-600 mb-6">
                   for innovative animal nutrition solutions that drive results
                 </p>
+                
+                {/* Enhanced stats */}
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="bg-white rounded-lg p-3 shadow-md">
+                    <div className="text-xl font-bold text-primary-600">2024</div>
+                    <div className="text-xs text-secondary-600">Established</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-3 shadow-md">
+                    <div className="text-xl font-bold text-primary-600">500+</div>
+                    <div className="text-xs text-secondary-600">Happy Clients</div>
+                  </div>
+                </div>
+                
                 <div className="absolute top-4 right-4 bg-primary-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                   Since 2024
                 </div>
@@ -313,65 +391,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Advanced Delivery Systems */}
-      <section className="py-20 bg-white">
-        <div className="max-width section-padding">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <div className="bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-medium inline-block mb-6">
-                Innovation
-              </div>
-              <h2 className="text-4xl font-bold text-secondary-900 mb-6">
-                Advanced Delivery Systems
-              </h2>
-              <div className="bg-gradient-to-r from-primary-50 to-white p-6 rounded-xl border border-primary-200">
-                <h3 className="text-2xl font-semibold text-secondary-800 mb-4">
-                  Calcium Phosphorus Gel
-                </h3>
-                <p className="text-lg text-secondary-600 mb-6">
-                  Fast-acting, high bioavailability solution for emergency supplementation
-                </p>
-                <ul className="space-y-3">
-                  {[
-                    "Post-calving deficiency prevention",
-                    "Milk fever prevention",
-                    "Bone development support", 
-                    "Emergency supplementation",
-                    "Easy administration (no mixing powders)"
-                  ].map((benefit, index) => (
-                    <li key={index} className="flex items-center text-secondary-700">
-                      <CheckCircle className="w-5 h-5 text-primary-500 mr-3" />
-                      {benefit}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-primary-100 to-primary-200 rounded-3xl p-12">
-                <Factory className="w-24 h-24 text-primary-600 mx-auto mb-6" />
-                <h3 className="text-2xl font-bold text-secondary-800 mb-4">State-of-the-Art Manufacturing</h3>
-                <p className="text-lg text-secondary-600 mb-6">
-                  Modern facilities ensuring consistent quality and timely delivery
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white rounded-lg p-4">
-                    <div className="text-2xl font-bold text-primary-600">GMP</div>
-                    <div className="text-sm text-secondary-600">Certified</div>
-                  </div>
-                  <div className="bg-white rounded-lg p-4">
-                    <div className="text-2xl font-bold text-primary-600">24/7</div>
-                    <div className="text-sm text-secondary-600">Production</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits & Impact Section */}
      
 
       {/* Global Reach & Certifications */}

@@ -23,16 +23,31 @@ const Footer = () => {
               high-quality products.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors">
+              <a 
+                href="https://www.facebook.com/share/19iDqWAJT6/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-secondary-400 hover:text-primary-400 transition-colors"
+                aria-label="Follow us on Facebook"
+              >
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors">
+              <a 
+                href="http://instagram.com/anilifehealthcare/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-secondary-400 hover:text-primary-400 transition-colors"
+                aria-label="Follow us on Instagram"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors">
+              <a 
+                href="https://www.linkedin.com/company/anilifehealthcare/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-secondary-400 hover:text-primary-400 transition-colors"
+                aria-label="Follow us on LinkedIn"
+              >
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>

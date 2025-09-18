@@ -1,0 +1,21 @@
+# Alternative .htaccess for servers that don't support complex rewrite rules
+# Copy this content to .htaccess if the main one doesn't work
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# HTTPS redirect
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Handle React Router - Simplified
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteRule ^(.*)$ /index.html [QSA,L]
+</IfModule>
+
+# If mod_rewrite is not available, try this fallback
+<IfModule !mod_rewrite.c>
+ErrorDocument 404 /index.html
+</IfModule>

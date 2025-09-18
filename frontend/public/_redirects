@@ -1,0 +1,9 @@
+# Netlify redirects file
+/*    /index.html   200
+
+# Specific admin routes
+/admin/*    /index.html   200
+/admin/login    /index.html   200
+
+# API routes should not be redirected
+/api/*  /api/:splat  200

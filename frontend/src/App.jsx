@@ -32,7 +32,7 @@ function App() {
         >
         <div className="flex flex-col min-h-screen">
           <Routes>
-            {/* Admin routes without navbar/footer */}
+            {/* Admin routes without navbar/footer - These should match first */}
             <Route 
               path="/admin/login" 
               element={<AdminLogin />} 

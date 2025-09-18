@@ -1,9 +1,15 @@
-# Netlify redirects file
-/*    /index.html   200
+# Netlify redirects file for React Router
 
-# Specific admin routes
-/admin/*    /index.html   200
-/admin/login    /index.html   200
-
-# API routes should not be redirected
+# API routes should not be redirected (if using Netlify Functions)
 /api/*  /api/:splat  200
+
+# Specific page redirects to handle React Router
+/about    /index.html   200
+/contact  /index.html   200
+/products /index.html   200
+/products/* /index.html   200
+/admin/*  /index.html   200
+/admin/login /index.html   200
+
+# Fallback for all other routes
+/*    /index.html   200

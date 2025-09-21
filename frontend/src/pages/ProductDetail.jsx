@@ -334,7 +334,7 @@ const ProductDetail = () => {
             <div>
               <div className="border-b border-gray-200">
                 <nav className="-mb-px flex space-x-4 sm:space-x-8 overflow-x-auto scrollbar-hide">
-                  {['description', 'product-details', 'uses', 'benefits', 'features', 'specifications'].map((tab) => (
+                  {['description', 'product-details', 'uses', 'benefits', 'packaging', 'specifications'].map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
@@ -384,19 +384,20 @@ const ProductDetail = () => {
                   </div>
                 )}
 
-                {activeTab === 'features' && (
+                {activeTab === 'packaging' && (
                   <div>
-                    {product.features && product.features.length > 0 ? (
-                      <ul className="space-y-3">
-                        {product.features.map((feature, index) => (
-                          <li key={index} className="flex items-start">
-                            <Check className="h-5 w-5 text-primary-600 mr-3 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-700">{feature}</span>
-                          </li>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Available Packaging Sizes</h3>
+                    {product.packagingSize && product.packagingSize.length > 0 ? (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                        {product.packagingSize.map((size, index) => (
+                          <div key={index} className="flex items-center p-3 bg-primary-50 rounded-lg border border-primary-200">
+                            <Package className="h-5 w-5 text-primary-600 mr-3 flex-shrink-0" />
+                            <span className="text-gray-700 font-medium">{size}</span>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     ) : (
-                      <p className="text-gray-500">No features listed for this product.</p>
+                      <p className="text-gray-500">No packaging sizes listed for this product.</p>
                     )}
                   </div>
                 )}

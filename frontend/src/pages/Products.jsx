@@ -97,6 +97,7 @@ const Products = () => {
       id: 'cattle',
       name: 'Cattle Supplements',
       icon: Milk,
+      image: '/categories/cattle-supplements.jpg',
       description: 'Calcium boosters, multivitamins, digestive health enhancers',
       color: 'bg-red-50 text-red-600 border-red-200',
       products: ['Calcium Supplements', 'Multivitamin Liquid', 'Liver Tonic']
@@ -105,6 +106,7 @@ const Products = () => {
       id: 'aquaculture',
       name: 'Aquaculture Solutions',
       icon: Waves,
+      image: '/categories/aquaculture-solutions.jpg',
       description: 'Water-soluble feed additives for fish & shrimp growth, immunity, water quality',
       color: 'bg-blue-50 text-blue-600 border-blue-200',
       products: ['Fish Growth Enhancer', 'Shrimp Immunity Booster', 'Water Quality Improver']
@@ -113,6 +115,7 @@ const Products = () => {
       id: 'poultry',
       name: 'Poultry Products',
       icon: Egg,
+      image: '/categories/poultry-products.jpg',
       description: 'Vitamin complexes, calcium supplements, immunity boosters for egg & meat quality',
       color: 'bg-yellow-50 text-yellow-600 border-yellow-200',
       products: ['Egg Production Enhancer', 'Poultry Vitamin Complex', 'Broiler Growth Supplement']
@@ -121,6 +124,7 @@ const Products = () => {
       id: 'pet-care',
       name: 'Pet Care',
       icon: Heart,
+      image: '/categories/pet-care.jpg',
       description: 'Premium supplements for dogs, cats & pets – joint health, coat shine, digestion, vitality',
       color: 'bg-green-50 text-green-600 border-green-200',
       products: ['Joint Health Supplement', 'Coat Shine Formula', 'Digestive Health Support']

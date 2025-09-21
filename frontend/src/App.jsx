@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 // Public Pages
 import Home from './pages/Home';
 import About from './pages/About';
+import OurCompanies from './pages/OurCompanies';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Contact from './pages/Contact';
@@ -67,6 +68,18 @@ function App() {
                   <Navbar />
                   <main className="flex-grow">
                     <About />
+                  </main>
+                  <Footer />
+                </>
+              } 
+            />
+            <Route 
+              path="/our-companies" 
+              element={
+                <>
+                  <Navbar />
+                  <main className="flex-grow">
+                    <OurCompanies />
                   </main>
                   <Footer />
                 </>

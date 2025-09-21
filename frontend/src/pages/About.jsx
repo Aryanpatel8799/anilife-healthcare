@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, Users, Heart, Target, CheckCircle, Globe, Building2, Zap, Shield, Factory } from 'lucide-react';
+import { Award, Users, Heart, CheckCircle, Globe, Factory, Building2 } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const About = () => {
@@ -83,114 +83,6 @@ const About = () => {
                 <div className="text-3xl font-bold text-primary-600">4+</div>
                 <div className="text-secondary-600 text-sm">Specializations</div>
                 <div className="text-xs text-secondary-500 mt-1">Complete Solutions</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Companies */}
-      <section className="py-20 bg-gradient-to-br from-primary-50 via-white to-primary-100">
-        <div className="max-width section-padding">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <div className="bg-primary-200 text-primary-800 px-6 py-3 rounded-full text-sm font-medium inline-block mb-6">
-                <Building2 className="w-4 h-4 inline mr-2" />
-                Our Companies
-              </div>
-              <h2 className="text-4xl lg:text-5xl font-bold text-secondary-900 mb-6">
-                Built on <span className="text-primary-600">27+ Years</span> of Industry Excellence
-              </h2>
-              <p className="text-xl text-secondary-600 max-w-3xl mx-auto leading-relaxed">
-                AniLife Healthcare is backed by decades of agricultural expertise through our established parent companies
-              </p>
-            </div>
-            
-            {/* Company Story */}
-            <div className="bg-white rounded-2xl p-8 lg:p-12 shadow-xl mb-12">
-              <div className="space-y-6">
-                <p className="text-lg text-secondary-600 leading-relaxed">
-                  AniLife Healthcare stands on the strong foundation of decades of industry expertise through our parent companies, 
-                  <strong className="text-primary-700"> Ganesh Oil Industry</strong> and <strong className="text-primary-700">Gajanand Oil Industry</strong>. 
-                  For over 27 years, these established enterprises have been leaders in the cotton seed cake and oil business, building a reputation 
-                  for quality, reliability, and deep understanding of agricultural needs.
-                </p>
-                <p className="text-lg text-secondary-600 leading-relaxed">
-                  This rich heritage in agricultural products and processing has given us invaluable insights into the nutritional 
-                  requirements of farm animals and the challenges faced by farmers. Our transition into animal healthcare supplements 
-                  is a natural evolution, leveraging decades of experience in agricultural nutrition and quality processing.
-                </p>
-                <p className="text-lg text-secondary-600 leading-relaxed">
-                  The trust and relationships built over 27+ years in the agricultural sector form the cornerstone of AniLife Healthcare's 
-                  commitment to excellence. We bring the same dedication to quality, customer service, and innovation that has made 
-                  our parent companies successful for nearly three decades.
-                </p>
-              </div>
-            </div>
-            
-            {/* Heritage Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
-              <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-primary-100">
-                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="w-8 h-8 text-primary-600" />
-                </div>
-                <div className="text-4xl font-bold text-primary-600 mb-2">27+</div>
-                <div className="text-secondary-800 font-semibold mb-1">Years of Experience</div>
-                <div className="text-sm text-secondary-500">Industry Leadership</div>
-              </div>
-              <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-primary-100">
-                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Factory className="w-8 h-8 text-primary-600" />
-                </div>
-                <div className="text-4xl font-bold text-primary-600 mb-2">2</div>
-                <div className="text-secondary-800 font-semibold mb-1">Established Companies</div>
-                <div className="text-sm text-secondary-500">Ganesh & Gajanand Oil</div>
-              </div>
-              <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-primary-100">
-                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Zap className="w-8 h-8 text-primary-600" />
-                </div>
-                <div className="text-4xl font-bold text-primary-600 mb-2">100%</div>
-                <div className="text-secondary-800 font-semibold mb-1">Agricultural Focus</div>
-                <div className="text-sm text-secondary-500">Cotton Seed Expertise</div>
-              </div>
-            </div>
-
-            {/* Company Highlight Cards */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="bg-gradient-to-br from-white to-primary-50 border border-primary-200 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center mr-4">
-                    <Building2 className="w-6 h-6 text-primary-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-primary-800">Ganesh Oil Industry</h3>
-                </div>
-                <p className="text-primary-700 leading-relaxed mb-4">
-                  Pioneer in cotton seed processing and oil production, established with a commitment to quality 
-                  and agricultural excellence.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">Cotton Seed Processing</span>
-                  <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">Oil Production</span>
-                  {/* <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">Quality Assurance</span> */}
-                </div>
-              </div>
-              <div className="bg-gradient-to-br from-white to-primary-50 border border-primary-200 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center mr-4">
-                    <Building2 className="w-6 h-6 text-primary-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-primary-800">Gajanand Oil Industry</h3>
-                </div>
-                <p className="text-primary-700 leading-relaxed mb-4">
-                  Complementing our expertise in cotton seed cake and oil business, strengthening our 
-                  agricultural industry presence.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">Agricultural Products</span>
-                  <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">Industry Expertise</span>
-                  <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">Market Leadership</span>
-                </div>
               </div>
             </div>
           </div>

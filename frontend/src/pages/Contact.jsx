@@ -109,7 +109,7 @@ const Contact = () => {
               {
                 icon: MapPin,
                 title: "Visit Us",
-                info: "Visnagar , Gujarat",
+                info: "Mehsana , Gujarat",
                 subtitle: "27-Sadguru estate,depan road visnagar,Gujarat 384315"
               },
               {

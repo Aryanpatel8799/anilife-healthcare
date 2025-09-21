@@ -110,7 +110,7 @@ const getProduct = async (req, res) => {
 // @access  Private (Admin only)
 const createProduct = async (req, res) => {
   try {
-    const { name, description, productDescription, uses, benefits, category, price, features } = req.body;
+    const { name, description, productDescription, uses, benefits, category, price, packagingSize } = req.body;
     
     let imageUrl = null;
     let imagePublicId = null;
@@ -119,9 +119,12 @@ const createProduct = async (req, res) => {
     // Handle multiple image upload
     if (req.files && req.files.length > 0) {
       try {
-        // Upload all images to Cloudinary
-        const uploadPromises = req.files.map((file, index) => {
-          return new Promise((resolve, reject) => {
+        // Upload all images to Cloudinary in sequence to preserve order
+        images = [];
+        for (let index = 0; index < req.files.length; index++) {
+          const file = req.files[index];
+          
+          const uploadResult = await new Promise((resolve, reject) => {
             const uploadStream = cloudinary.uploader.upload_stream(
               {
                 folder: 'anilife-products',
@@ -145,9 +148,9 @@ const createProduct = async (req, res) => {
             );
             uploadStream.end(file.buffer);
           });
-        });
-
-        images = await Promise.all(uploadPromises);
+          
+          images.push(uploadResult);
+        }
         
         // Set primary image from first uploaded image
         if (images.length > 0) {
@@ -175,7 +178,7 @@ const createProduct = async (req, res) => {
       imageUrl,
       imagePublicId,
       images,
-      features: features ? (typeof features === 'string' ? JSON.parse(features) : features) : []
+      packagingSize: packagingSize ? (typeof packagingSize === 'string' ? JSON.parse(packagingSize) : packagingSize) : []
     });
 
     res.status(201).json({
@@ -207,7 +210,7 @@ const updateProduct = async (req, res) => {
       });
     }
 
-    const { name, description, productDescription, uses, benefits, category, price, features } = req.body;
+    const { name, description, productDescription, uses, benefits, category, price, packagingSize } = req.body;
     
     // Update fields
     if (name) product.name = name;
@@ -217,7 +220,7 @@ const updateProduct = async (req, res) => {
     if (benefits) product.benefits = benefits;
     if (category) product.category = category;
     if (price !== undefined) product.price = price ? parseFloat(price) : null;
-    if (features) product.features = typeof features === 'string' ? JSON.parse(features) : features;
+    if (packagingSize !== undefined) product.packagingSize = typeof packagingSize === 'string' ? JSON.parse(packagingSize) : packagingSize;
 
     // Handle multiple image upload
     if (req.files && req.files.length > 0) {
@@ -235,9 +238,12 @@ const updateProduct = async (req, res) => {
           await cloudinary.uploader.destroy(product.imagePublicId);
         }
 
-        // Upload new images
-        const uploadPromises = req.files.map((file, index) => {
-          return new Promise((resolve, reject) => {
+        // Upload new images in sequence to preserve order
+        const images = [];
+        for (let index = 0; index < req.files.length; index++) {
+          const file = req.files[index];
+          
+          const uploadResult = await new Promise((resolve, reject) => {
             const uploadStream = cloudinary.uploader.upload_stream(
               {
                 folder: 'anilife-products',
@@ -261,9 +267,9 @@ const updateProduct = async (req, res) => {
             );
             uploadStream.end(file.buffer);
           });
-        });
-
-        const images = await Promise.all(uploadPromises);
+          
+          images.push(uploadResult);
+        }
         
         // Update product with new images
         product.images = images;

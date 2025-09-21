@@ -68,7 +68,7 @@ const AdminDashboard = () => {
     benefits: '',
     category: '',
     price: '',
-    features: '',
+    packagingSize: '',
     images: []
   });
   const [isEditMode, setIsEditMode] = useState(false);
@@ -197,7 +197,7 @@ const AdminDashboard = () => {
       benefits: '',
       category: '',
       price: '',
-      features: '',
+      packagingSize: '',
       images: []
     });
     setIsEditMode(false);
@@ -206,8 +206,12 @@ const AdminDashboard = () => {
   const handleProductFormChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'images') {
-      // Limit to maximum 5 images
-      const selectedFiles = Array.from(files).slice(0, 5);
+      // Convert FileList to Array while preserving selection order
+      // Note: Some browsers may sort files alphabetically in FileList
+      const selectedFiles = [];
+      for (let i = 0; i < Math.min(files.length, 5); i++) {
+        selectedFiles.push(files[i]);
+      }
       setProductForm(prev => ({ ...prev, images: selectedFiles }));
       
       if (files.length > 5) {
@@ -216,6 +220,20 @@ const AdminDashboard = () => {
     } else {
       setProductForm(prev => ({ ...prev, [name]: value }));
     }
+  };
+
+  // Function to reorder images
+  const moveImage = (fromIndex, toIndex) => {
+    const newImages = [...productForm.images];
+    const [movedItem] = newImages.splice(fromIndex, 1);
+    newImages.splice(toIndex, 0, movedItem);
+    setProductForm(prev => ({ ...prev, images: newImages }));
+  };
+
+  // Function to remove specific image
+  const removeImage = (index) => {
+    const newImages = productForm.images.filter((_, i) => i !== index);
+    setProductForm(prev => ({ ...prev, images: newImages }));
   };
 
   const handleAddProduct = () => {
@@ -232,7 +250,7 @@ const AdminDashboard = () => {
       benefits: product.benefits || '',
       category: product.category || '',
       price: product.price?.toString() || '',
-      features: Array.isArray(product.features) ? product.features.join(', ') : '',
+      packagingSize: Array.isArray(product.packagingSize) ? product.packagingSize.join(', ') : (product.packagingSize || ''),
       images: []
     });
     setSelectedProduct(product);
@@ -254,18 +272,19 @@ const AdminDashboard = () => {
       formData.append('category', productForm.category);
       formData.append('price', productForm.price);
       
-      // Handle features array
-      const featuresArray = productForm.features
+      // Handle packaging sizes array
+      const packagingSizesArray = productForm.packagingSize
         .split(',')
-        .map(f => f.trim())
-        .filter(f => f.length > 0);
-      formData.append('features', JSON.stringify(featuresArray));
+        .map(size => size.trim())
+        .filter(size => size.length > 0);
+      formData.append('packagingSize', JSON.stringify(packagingSizesArray));
 
       // Handle multiple images
       if (productForm.images && productForm.images.length > 0) {
-        Array.from(productForm.images).forEach(image => {
-          formData.append('images', image);
-        });
+        // Preserve original selection order by iterating through array directly
+        for (let i = 0; i < productForm.images.length; i++) {
+          formData.append('images', productForm.images[i]);
+        }
       }
 
       let result;
@@ -1290,14 +1309,20 @@ const AdminDashboard = () => {
                   <p className="text-primary-600 font-medium">{formatPrice(selectedProduct.price)}</p>
                   <p className="text-secondary-600 mt-2">{selectedProduct.description}</p>
                 </div>
-                {selectedProduct.features && (
+                {selectedProduct.packagingSize && (
                   <div>
-                    <h5 className="font-medium text-secondary-900 mb-2">Features:</h5>
-                    <ul className="list-disc list-inside text-secondary-600 space-y-1">
-                      {selectedProduct.features.map((feature, index) => (
-                        <li key={index}>{feature}</li>
-                      ))}
-                    </ul>
+                    <h5 className="font-medium text-secondary-900 mb-2">Available Packaging Sizes:</h5>
+                    {Array.isArray(selectedProduct.packagingSize) ? (
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProduct.packagingSize.map((size, index) => (
+                          <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                            {size}
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-secondary-600">{selectedProduct.packagingSize}</p>
+                    )}
                   </div>
                 )}
               </div>
@@ -1549,7 +1574,7 @@ const AdminDashboard = () => {
                       <div className="mt-4">
                         <p className="text-sm font-medium text-gray-700 mb-3">New images to upload ({productForm.images.length}/5):</p>
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                          {Array.from(productForm.images).slice(0, 5).map((file, index) => (
+                          {productForm.images.slice(0, 5).map((file, index) => (
                             <div key={index} className="relative group">
                               <div className="aspect-square bg-gray-100 rounded-lg border-2 border-gray-300 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                                 <img
@@ -1569,15 +1594,36 @@ const AdminDashboard = () => {
                               {/* Remove button */}
                               <button
                                 type="button"
-                                onClick={() => {
-                                  const newImages = Array.from(productForm.images).filter((_, i) => i !== index);
-                                  setProductForm(prev => ({ ...prev, images: newImages }));
-                                }}
+                                onClick={() => removeImage(index)}
                                 className="absolute -top-2 -left-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
                                 title="Remove this image"
                               >
                                 ×
                               </button>
+                              
+                              {/* Reorder buttons */}
+                              <div className="absolute top-2 left-2 flex flex-col space-y-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                {index > 0 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => moveImage(index, index - 1)}
+                                    className="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center shadow-lg hover:bg-blue-600 text-xs"
+                                    title="Move up"
+                                  >
+                                    ↑
+                                  </button>
+                                )}
+                                {index < productForm.images.length - 1 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => moveImage(index, index + 1)}
+                                    className="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center shadow-lg hover:bg-blue-600 text-xs"
+                                    title="Move down"
+                                  >
+                                    ↓
+                                  </button>
+                                )}
+                              </div>
                               {/* Main image indicator */}
                               {index === 0 && (
                                 <div className="absolute bottom-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-medium">
@@ -1597,12 +1643,19 @@ const AdminDashboard = () => {
                             Only first 5 images will be uploaded
                           </p>
                         )}
+                        <div className="mt-3 p-3 bg-green-50 rounded-lg">
+                          <p className="text-xs text-green-700">
+                            <span className="font-medium">📋 Image Ordering:</span>
+                            <br />• Hover over images to see reorder buttons (↑↓) and remove button (×)
+                            <br />• Use ↑↓ buttons to change image order - the first image becomes the main product image
+                            <br />• The main image is displayed in product listings and search results
+                          </p>
+                        </div>
                         <div className="mt-3 p-3 bg-blue-50 rounded-lg">
                           <p className="text-xs text-blue-700">
                             <span className="font-medium">💡 Image Processing:</span>
                             <br />• Images will be optimized and resized (max 1200x1200px) while maintaining aspect ratio
                             <br />• No cropping will be applied - original proportions are preserved
-                            <br />• The first image will be the main product image shown in listings
                             <br />• Supported formats: JPG, PNG, WebP
                             <br />• For best results, use high-resolution images with good lighting
                           </p>
@@ -1614,18 +1667,18 @@ const AdminDashboard = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-secondary-700 mb-2">
-                    Features
+                    Packaging Sizes
                   </label>
                   <textarea
-                    name="features"
-                    value={productForm.features}
+                    name="packagingSize"
+                    value={productForm.packagingSize}
                     onChange={handleProductFormChange}
                     rows={3}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="Enter features separated by commas (e.g., Organic, Veterinary approved, Easy to use)"
+                    placeholder="Enter packaging sizes separated by commas (e.g., 1kg, 500g, 250g, 5L)"
                   />
                   <p className="text-xs text-gray-500 mt-1">
-                    Enter each feature separated by a comma
+                    Enter each packaging size separated by a comma
                   </p>
                 </div>
 

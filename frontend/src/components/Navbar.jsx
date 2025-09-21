@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart, Phone, Mail } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import GoogleTranslate from './GoogleTranslate';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,6 +11,7 @@ const Navbar = () => {
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Products', href: '/products' },
+    { name: 'Our Companies', href: '/our-companies' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -50,19 +52,15 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Admin Link (Desktop) */}
-            <div className="hidden md:flex items-center space-x-4">
-              {/* <Link
-                to="/admin/login"
-                className="text-sm font-medium text-secondary-700 hover:text-primary-600 transition-colors duration-200"
-              >
-                Admin
-              </Link> */}
+            {/* Right (Desktop) */}
+            <div className="hidden md:flex items-center space-x-6">
+              <GoogleTranslate />
               <Link
                 to="/contact"
-                className="btn-primary text-sm"
+                className="inline-flex items-center rounded-full bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-primary-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition"
               >
                 Get Quote
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
 
@@ -95,21 +93,19 @@ const Navbar = () => {
                     {item.name}
                   </Link>
                 ))}
-                <div className="border-t border-secondary-200 pt-3 mt-3">
-                  {/* <Link
-                    to="/admin/login"
-                    className="block px-3 py-2 text-base font-medium text-secondary-700 hover:text-primary-600 hover:bg-primary-50 rounded-md"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Admin Login
-                  </Link> */}
+                <div className="border-t border-secondary-200 pt-4 mt-4">
+                  <div className="px-3 py-3 mb-4">
+                    <GoogleTranslate />
+                  </div>
+              
                   <Link
                     to="/contact"
                     className="block px-3 py-2 mt-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <span className="btn-primary text-sm w-full text-center block">
+                    <span className="inline-flex w-full items-center justify-center rounded-full bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-primary-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition">
                       Get Quote
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </span>
                   </Link>
                 </div>

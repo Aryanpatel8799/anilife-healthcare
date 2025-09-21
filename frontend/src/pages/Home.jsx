@@ -293,33 +293,60 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                icon: Milk,
+                image: "/categories/cattle-supplements.jpg",
+                fallbackImage: "/cow.png",
                 title: "Cattle Supplements",
                 description: "Calcium boosters, multivitamins, digestive health enhancers",
-                color: "bg-red-50 text-red-600"
+                // color: "bg-red-50 border-red-200",
+                iconFallback: Milk
               },
               {
-                icon: Waves,
+                image: "/categories/aquaculture-solutions.jpg",
+                fallbackImage: "/fish.png",
                 title: "Aquaculture Solutions", 
                 description: "Water-soluble feed additives for fish & shrimp growth, immunity, water quality",
-                color: "bg-blue-50 text-blue-600"
+                // color: "bg-blue-50 border-blue-200",
+                iconFallback: Waves
               },
               {
-                icon: Egg,
+                image: "/categories/poultry-products.jpg",
+                fallbackImage: "/poultry.png",
                 title: "Poultry Products",
                 description: "Vitamin complexes, calcium supplements, immunity boosters for egg & meat quality",
-                color: "bg-yellow-50 text-yellow-600"
+                // color: "bg-yellow-50 border-yellow-200",
+                iconFallback: Egg
               },
               {
-                icon: Heart,
+                image: "/categories/pet-care.jpg",
+                fallbackImage: "/dog.png",
                 title: "Pet Care",
                 description: "Premium supplements for dogs, cats & pets – joint health, coat shine, digestion, vitality",
-                color: "bg-green-50 text-green-600"
+              //  color: "bg-green-50 border-green-200",
+                iconFallback: Heart
               }
             ].map((category, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group">
-                <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 ${category.color} group-hover:scale-110 transition-transform duration-300`}>
-                  <category.icon className="w-7 h-7" />
+              <div key={index} className={`bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group border-2 ${category.color}`}>
+                <div className="w-full h-32 mb-4 rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
+                  <img 
+                    src={category.image} 
+                    alt={`${category.title} - Animal nutrition supplements`}
+                    className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      // Try fallback image first
+                      if (e.target.src !== category.fallbackImage) {
+                        e.target.src = category.fallbackImage;
+                      } else {
+                        // If fallback image also fails, hide image and show icon
+                        e.target.style.display = 'none';
+                        const fallbackDiv = e.target.nextElementSibling;
+                        if (fallbackDiv) fallbackDiv.style.display = 'flex';
+                      }
+                    }}
+                  />
+                  {/* Icon fallback container - hidden by default */}
+                  <div className="hidden w-14 h-14 rounded-xl bg-primary-100 text-primary-600 items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <category.iconFallback className="w-7 h-7" />
+                  </div>
                 </div>
                 <h3 className="text-lg font-semibold text-secondary-800 mb-3">{category.title}</h3>
                 <p className="text-secondary-600 text-sm leading-relaxed">{category.description}</p>

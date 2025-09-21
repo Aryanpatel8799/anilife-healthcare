@@ -72,7 +72,7 @@ const productSchema = new mongoose.Schema({
       default: ''
     }
   }],
-  features: [{
+  packagingSize: [{
     type: String,
     trim: true
   }],

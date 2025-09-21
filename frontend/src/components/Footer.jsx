@@ -104,37 +104,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Product Categories */}
-        <div className="border-t border-secondary-700 mt-8 pt-8">
-          <h3 className="text-lg font-semibold mb-4 text-white">Product Categories</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-secondary-300 hover:text-primary-400 transition-colors cursor-pointer">
-              Feed Supplements
-            </div>
-            <div className="text-secondary-300 hover:text-primary-400 transition-colors cursor-pointer">
-              Health Supplements
-            </div>
-            <div className="text-secondary-300 hover:text-primary-400 transition-colors cursor-pointer">
-              Vitamins & Minerals
-            </div>
-            <div className="text-secondary-300 hover:text-primary-400 transition-colors cursor-pointer">
-              Digestive Health
-            </div>
-            <div className="text-secondary-300 hover:text-primary-400 transition-colors cursor-pointer">
-              Immunity Boosters
-            </div>
-            <div className="text-secondary-300 hover:text-primary-400 transition-colors cursor-pointer">
-              Growth Promoters
-            </div>
-            <div className="text-secondary-300 hover:text-primary-400 transition-colors cursor-pointer">
-              Reproductive Health
-            </div>
-            <div className="text-secondary-300 hover:text-primary-400 transition-colors cursor-pointer">
-              Specialized Care
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Bar */}
         <div className="border-t border-secondary-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-secondary-400 text-sm">

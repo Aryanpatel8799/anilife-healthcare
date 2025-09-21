@@ -4,7 +4,8 @@ import {
   ArrowRight, Shield, Award, Users, Truck, Heart, CheckCircle, 
   Star, Quote, Play, Calendar, Phone, Mail, MapPin, 
   Stethoscope, Leaf, Target, TrendingUp, Clock, Globe,
-  Fish, Bird, Dog, Zap, Building2, FlaskConical, Factory
+  Fish, Bird, Dog, Zap, Building2, FlaskConical, Factory,
+  Milk, Waves, Egg
 } from 'lucide-react';
 import SEO from '../components/SEO';
 
@@ -46,12 +47,7 @@ const Home = () => {
       <div className="page-container">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 via-white to-primary-100 py-16 lg:py-24 relative overflow-hidden min-h-[85vh] flex items-center">
-        {/* Background Elements */}
-        {/* <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-primary-200 rounded-full animate-pulse-slow"></div>
-          <div className="absolute bottom-20 right-10 w-24 h-24 bg-primary-300 rounded-full animate-pulse-slow delay-1000"></div>
-          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-100 rounded-full animate-bounce delay-500"></div>
-        </div> */}
+       
         
         <div className="max-width section-padding relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -243,28 +239,28 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: Shield,
+                // icon: Shield,
                 title: "Quality Assurance",
                 description: "Rigorous testing, certified facilities, expert team ensuring the highest standards",
                 features: ["GMP Compliance", "FSSAI License", "Expert Testing"]
               },
               {
-                icon: FlaskConical,
+                // icon: FlaskConical,
                 title: "Scientific Innovation",
                 description: "Research-driven formulations based on latest nutritional science",
                 features: ["R&D Based", "Custom Solutions", "Proven Results"]
               },
               {
-                icon: Globe,
+                // icon: Globe,
                 title: "Global Reach",
                 description: "Export-ready, international partnerships, consistent quality worldwide",
                 features: ["FIEO Certified", "APEDA Registration", "Multiple Countries"]
               }
             ].map((feature, index) => (
               <div key={index} className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                <div className="bg-primary-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                {/* <div className="bg-primary-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
                   <feature.icon className="w-8 h-8 text-primary-600" />
-                </div>
+                </div> */}
                 <h3 className="text-xl font-semibold text-secondary-800 mb-4">{feature.title}</h3>
                 <p className="text-secondary-600 mb-6">{feature.description}</p>
                 <ul className="space-y-2">
@@ -297,25 +293,25 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                icon: Heart,
+                icon: Milk,
                 title: "Cattle Supplements",
                 description: "Calcium boosters, multivitamins, digestive health enhancers",
                 color: "bg-red-50 text-red-600"
               },
               {
-                icon: Fish,
-                title: "Aquaculture Solutions",
+                icon: Waves,
+                title: "Aquaculture Solutions", 
                 description: "Water-soluble feed additives for fish & shrimp growth, immunity, water quality",
                 color: "bg-blue-50 text-blue-600"
               },
               {
-                icon: Bird,
+                icon: Egg,
                 title: "Poultry Products",
                 description: "Vitamin complexes, calcium supplements, immunity boosters for egg & meat quality",
                 color: "bg-yellow-50 text-yellow-600"
               },
               {
-                icon: Dog,
+                icon: Heart,
                 title: "Pet Care",
                 description: "Premium supplements for dogs, cats & pets – joint health, coat shine, digestion, vitality",
                 color: "bg-green-50 text-green-600"
@@ -351,26 +347,26 @@ const Home = () => {
               {
                 title: "Calcium Supplements",
                 description: "For bone health, milk production, deficiency prevention",
-                icon: Heart,
+                // icon: Heart,
                 features: ["Enhanced milk production", "Stronger bones", "Disease prevention"]
               },
               {
                 title: "Multivitamin Liquid",
                 description: "Vitamins A, D, E, B-complex – immunity, growth, reproduction",
-                icon: Zap,
+                // icon: Zap,
                 features: ["Complete nutrition", "Immune support", "Growth enhancement"]
               },
               {
                 title: "Liver Tonic",
                 description: "Herbal detox & digestion support",
-                icon: Leaf,
+                // icon: Leaf,
                 features: ["Natural detox", "Digestive health", "Liver protection"]
               }
             ].map((product, index) => (
               <div key={index} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group">
-                <div className="bg-primary-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary-200 transition-colors duration-300">
+                {/* <div className="bg-primary-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary-200 transition-colors duration-300">
                   <product.icon className="w-7 h-7 text-primary-600" />
-                </div>
+                </div> */}
                 <h3 className="text-xl font-semibold text-secondary-800 mb-3">{product.title}</h3>
                 <p className="text-secondary-600 mb-4">{product.description}</p>
                 <ul className="space-y-2 mb-6">
@@ -393,62 +389,7 @@ const Home = () => {
 
      
 
-      {/* Global Reach & Certifications */}
-      <section className="py-20 bg-white">
-        <div className="max-width section-padding">
-          <div className="text-center mb-16">
-            <div className="bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-medium inline-block mb-6">
-              Global Excellence
-            </div>
-            <h2 className="text-4xl font-bold text-secondary-900 mb-6">Global Reach & Certifications</h2>
-            <p className="text-xl text-secondary-600 max-w-3xl mx-auto">
-              Trusted worldwide with international certifications and export excellence
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-2xl font-semibold text-secondary-800 mb-6">Global Presence</h3>
-              <p className="text-lg text-secondary-600 mb-6">
-                Exporting to multiple countries with consistent quality and international partnerships
-              </p>
-              <div className="space-y-4">
-                {[
-                  "Export to multiple countries",
-                  "International quality standards",
-                  "Global distribution network",
-                  "Consistent quality worldwide"
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center">
-                    <Globe className="w-5 h-5 text-primary-500 mr-3" />
-                    <span className="text-secondary-700">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-2xl font-semibold text-secondary-800 mb-6">Our Certifications</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { name: "FIEO", desc: "Export Excellence" },
-                  { name: "APEDA", desc: "Registration" },
-                  { name: "GMP", desc: "Compliance" },
-                  { name: "FSSAI", desc: "License" }
-                ].map((cert, index) => (
-                  <div key={index} className="bg-primary-50 rounded-lg p-4 text-center">
-                    <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mx-auto mb-3">
-                      <Award className="w-6 h-6 text-primary-600" />
-                    </div>
-                    <div className="font-semibold text-secondary-800">{cert.name}</div>
-                    <div className="text-sm text-secondary-600">{cert.desc}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  
 
       {/* Custom Solutions Section */}
       <section className="py-20 bg-gray-50">

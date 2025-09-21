@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Filter, X, ShoppingCart, Star, Heart, Fish, Bird, Dog, Zap, Leaf, Factory, Shield, Award, Package, CheckCircle } from 'lucide-react';
+import { Search, Filter, X, ShoppingCart, Star, Heart, Fish, Bird, Dog, Zap, Leaf, Factory, Shield, Award, Package, CheckCircle, Milk, Waves, Egg } from 'lucide-react';
 import { productService } from '../services/product';
 import { formatCurrency } from '../utils/helpers';
 import Loader, { SkeletonCard } from '../components/Loader';
@@ -73,17 +73,30 @@ const Products = () => {
   });
 
   // Paginate the sorted products
+  const totalProducts = sortedProducts.length;
+  const calculatedTotalPages = Math.ceil(totalProducts / productsPerPage);
   const currentProducts = sortedProducts.slice(
     (currentPage - 1) * productsPerPage,
     currentPage * productsPerPage
   );
+
+  // Update total pages when filtered products change
+  useEffect(() => {
+    const newTotalPages = Math.ceil(sortedProducts.length / productsPerPage);
+    setTotalPages(newTotalPages);
+    
+    // If current page is beyond the new total pages, reset to page 1
+    if (currentPage > newTotalPages && newTotalPages > 0) {
+      setCurrentPage(1);
+    }
+  }, [sortedProducts.length, currentPage, productsPerPage]);
 
   // AniLife Healthcare Product Categories
   const aniLifeCategories = [
     {
       id: 'cattle',
       name: 'Cattle Supplements',
-      icon: Heart,
+      icon: Milk,
       description: 'Calcium boosters, multivitamins, digestive health enhancers',
       color: 'bg-red-50 text-red-600 border-red-200',
       products: ['Calcium Supplements', 'Multivitamin Liquid', 'Liver Tonic']
@@ -91,7 +104,7 @@ const Products = () => {
     {
       id: 'aquaculture',
       name: 'Aquaculture Solutions',
-      icon: Fish,
+      icon: Waves,
       description: 'Water-soluble feed additives for fish & shrimp growth, immunity, water quality',
       color: 'bg-blue-50 text-blue-600 border-blue-200',
       products: ['Fish Growth Enhancer', 'Shrimp Immunity Booster', 'Water Quality Improver']
@@ -99,7 +112,7 @@ const Products = () => {
     {
       id: 'poultry',
       name: 'Poultry Products',
-      icon: Bird,
+      icon: Egg,
       description: 'Vitamin complexes, calcium supplements, immunity boosters for egg & meat quality',
       color: 'bg-yellow-50 text-yellow-600 border-yellow-200',
       products: ['Egg Production Enhancer', 'Poultry Vitamin Complex', 'Broiler Growth Supplement']
@@ -107,7 +120,7 @@ const Products = () => {
     {
       id: 'pet-care',
       name: 'Pet Care',
-      icon: Dog,
+      icon: Heart,
       description: 'Premium supplements for dogs, cats & pets – joint health, coat shine, digestion, vitality',
       color: 'bg-green-50 text-green-600 border-green-200',
       products: ['Joint Health Supplement', 'Coat Shine Formula', 'Digestive Health Support']
@@ -127,8 +140,8 @@ const Products = () => {
   const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
-      // Only fetch all products without filters to reduce API calls
-      const result = await productService.getAllProducts({});
+      // Request all products without any limit to avoid missing products
+      const result = await productService.getAllProducts({ limit: 100 });
       if (result.success) {
         setProducts(result.data.products || result.data || []);
       } else {
@@ -370,6 +383,20 @@ const Products = () => {
                 </div>
               ) : (
                 <>
+                  {/* Products Results Info */}
+                  <div className="flex justify-between items-center mb-8">
+                    <div className="text-sm text-gray-600">
+                      {debouncedSearchTerm || selectedCategory 
+                        ? `Showing ${currentProducts.length} of ${sortedProducts.length} filtered products (${products.length} total)` 
+                        : `Showing ${currentProducts.length} of ${products.length} products`}
+                    </div>
+                    {calculatedTotalPages > 1 && (
+                      <div className="text-sm text-gray-600">
+                        Page {currentPage} of {calculatedTotalPages}
+                      </div>
+                    )}
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {currentProducts.map((product) => (
                       <ProductCard key={product.id || product._id} product={product} />
@@ -377,7 +404,7 @@ const Products = () => {
                   </div>
 
                   {/* Pagination */}
-                  {Math.ceil(sortedProducts.length / productsPerPage) > 1 && (
+                  {calculatedTotalPages > 1 && (
                     <div className="flex justify-center items-center space-x-2 mt-16">
                       <button
                         onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
@@ -387,7 +414,7 @@ const Products = () => {
                         Previous
                       </button>
                       
-                      {Array.from({ length: Math.ceil(sortedProducts.length / productsPerPage) }, (_, i) => i + 1).map((page) => (
+                      {Array.from({ length: calculatedTotalPages }, (_, i) => i + 1).map((page) => (
                         <button
                           key={page}
                           onClick={() => setCurrentPage(page)}
@@ -402,8 +429,8 @@ const Products = () => {
                       ))}
                       
                       <button
-                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(sortedProducts.length / productsPerPage)))}
-                        disabled={currentPage === Math.ceil(sortedProducts.length / productsPerPage)}
+                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, calculatedTotalPages))}
+                        disabled={currentPage === calculatedTotalPages}
                         className="px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
                         Next

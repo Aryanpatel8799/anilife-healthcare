@@ -113,11 +113,12 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       console.log('Fetching products...');
-      const result = await productService.getProducts();
+      // Request all products without any limit
+      const result = await productService.getProducts({ limit: 100 }); // Set a high limit to get all products
       console.log('Products result:', result);
       if (result.success) {
-        setProducts(result.data.products || []);
-        toast.success(`Loaded ${result.data.products?.length || 0} products`);
+        setProducts(result.data.products || result.data || []);
+        toast.success(`Loaded ${(result.data.products || result.data || []).length} products`);
       } else {
         toast.error(result.message || 'Failed to fetch products');
       }

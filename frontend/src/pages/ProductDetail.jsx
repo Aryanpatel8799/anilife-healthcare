@@ -16,10 +16,11 @@ import {
   Check,
   Award,
   Clock,
-  Users
+  Users,
+  MessageCircle
 } from 'lucide-react';
-import { productService } from '../services/product';
-import { inquiryService } from '../services/inquiry';
+import { staticProductService } from '../services/staticProductService';
+import { whatsappInquiry } from '../services/whatsappInquiry';
 import { formatPrice, formatDate } from '../utils/helpers';
 import { Loader } from '../components/Loader';
 import SEO from '../components/SEO';
@@ -58,15 +59,20 @@ const ProductDetail = () => {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const result = await productService.getProduct(id);
-      if (result.success) {
+      
+      const result = await staticProductService.getProductById(id);
+      if (result.success && result.data && result.data.product) {
         setProduct(result.data.product);
+        // Set related products if available
+        if (result.data.relatedProducts) {
+          setRelatedProducts(result.data.relatedProducts);
+        }
       } else {
-        toast.error('Product not found');
-        navigate('/products');
+        throw new Error('Product not found');
       }
     } catch (error) {
-      toast.error('Failed to fetch product details');
+      console.error('Error fetching product:', error);
+      toast.error('Product not found');
       navigate('/products');
     } finally {
       setLoading(false);
@@ -75,14 +81,13 @@ const ProductDetail = () => {
 
   const fetchRelatedProducts = async () => {
     try {
-      const result = await productService.getProducts({
-        category: product.category,
-        limit: 4
-      });
-      if (result.success) {
-        // Filter out current product
-        const filtered = result.data.products.filter(p => p._id !== product._id);
-        setRelatedProducts(filtered.slice(0, 3));
+      if (product && product.category) {
+        const result = await staticProductService.getProductsByCategory(product.category, 4);
+        if (result.success && result.data) {
+          // Filter out current product
+          const filtered = result.data.filter(p => (p._id || p.id) !== (product._id || product.id));
+          setRelatedProducts(filtered.slice(0, 3));
+        }
       }
     } catch (error) {
       console.error('Failed to fetch related products:', error);
@@ -94,20 +99,15 @@ const ProductDetail = () => {
     setInquiryLoading(true);
 
     try {
-      const inquiryPayload = {
-        ...inquiryData,
-        subject: `Inquiry about ${product.name}`,
-        message: `${inquiryData.message}\n\nProduct: ${product.name}\nPrice: ${formatPrice(product.price)}`
-      };
-
-      const result = await inquiryService.submitInquiry(inquiryPayload);
+      // Send inquiry via WhatsApp
+      const result = whatsappInquiry.sendProductInquiry(product, inquiryData);
       
       if (result.success) {
-        toast.success('Inquiry sent successfully! We will contact you soon.');
+        toast.success('Redirecting to WhatsApp! Please send your inquiry there.');
         setShowInquiryForm(false);
         setInquiryData({ name: '', email: '', phone: '', message: '' });
       } else {
-        toast.error(result.message || 'Failed to send inquiry');
+        toast.error('Failed to open WhatsApp. Please try again.');
       }
     } catch (error) {
       toast.error('Failed to send inquiry. Please try again.');
@@ -225,6 +225,7 @@ const ProductDetail = () => {
         </div>
       </div>
 
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
           {/* Enhanced Product Image Gallery */}

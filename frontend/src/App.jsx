@@ -2,12 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { HelmetProvider } from 'react-helmet-async';
-import { AuthProvider } from './context/AuthContext';
 
 // Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import ProtectedRoute from './components/ProtectedRoute';
 
 // Public Pages
 import Home from './pages/Home';
@@ -16,38 +14,18 @@ import OurCompanies from './pages/OurCompanies';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Contact from './pages/Contact';
-import Debug from './pages/Debug';
-
-// Admin Pages
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
   return (
     <HelmetProvider>
-      <AuthProvider>
-        <Router 
-          future={{
-            v7_startTransition: true,
-            v7_relativeSplatPath: true
-          }}
-        >
+      <Router 
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true
+        }}
+      >
         <div className="flex flex-col min-h-screen">
           <Routes>
-            {/* Admin routes without navbar/footer */}
-            <Route 
-              path="/admin/login" 
-              element={<AdminLogin />} 
-            />
-            <Route 
-              path="/admin/dashboard" 
-              element={
-                <ProtectedRoute>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              } 
-            />
-            
             {/* Public routes with navbar/footer */}
             <Route 
               path="/" 
@@ -121,10 +99,6 @@ function App() {
                 </>
               } 
             />
-            <Route 
-              path="/debug" 
-              element={<Debug />} 
-            />
           </Routes>
           
           <Toaster 
@@ -139,7 +113,6 @@ function App() {
           />
         </div>
       </Router>
-    </AuthProvider>
     </HelmetProvider>
   );
 }

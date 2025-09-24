@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
-import { inquiryService } from '../services/inquiry';
+import { Phone, Mail, MapPin, Clock, Send, MessageCircle } from 'lucide-react';
+import { whatsappInquiry } from '../services/whatsappInquiry';
 import { validateContactForm } from '../utils/validation';
 import toast from 'react-hot-toast';
 import { ButtonLoader } from '../components/Loader';
@@ -44,9 +44,11 @@ const Contact = () => {
 
     setLoading(true);
     try {
-      const result = await inquiryService.submitInquiry(formData);
+      // Send inquiry via WhatsApp instead of backend
+      const result = whatsappInquiry.sendInquiry(formData);
+      
       if (result.success) {
-        toast.success('Thank you! Your inquiry has been submitted successfully. We will get back to you soon.');
+        toast.success('Redirecting to WhatsApp! Please send your inquiry there.');
         setFormData({
           name: '',
           email: '',
@@ -56,10 +58,10 @@ const Contact = () => {
         });
         setErrors({});
       } else {
-        toast.error(result.message || 'Failed to submit inquiry. Please try again.');
+        toast.error('Failed to open WhatsApp. Please try again.');
       }
     } catch (error) {
-      toast.error('Failed to submit inquiry. Please try again.');
+      toast.error('Failed to send inquiry. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -229,20 +231,31 @@ const Contact = () => {
                   {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full btn-primary flex items-center justify-center py-3"
-                >
-                  {loading ? (
-                    <ButtonLoader />
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5 mr-2" />
-                      Send Message
-                    </>
-                  )}
-                </button>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="btn-primary flex items-center justify-center py-3"
+                  >
+                    {loading ? (
+                      <ButtonLoader />
+                    ) : (
+                      <>
+                        <MessageCircle className="w-5 h-5 mr-2" />
+                        Send via WhatsApp
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => whatsappInquiry.quickContact()}
+                    className="btn-secondary flex items-center justify-center py-3"
+                  >
+                    <MessageCircle className="w-5 h-5 mr-2" />
+                    Quick WhatsApp
+                  </button>
+                </div>
               </form>
             </div>
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Filter, X, ShoppingCart, Star, Heart, Fish, Bird, Dog, Zap, Leaf, Factory, Shield, Award, Package, CheckCircle, Milk, Waves, Egg } from 'lucide-react';
-import { productService } from '../services/product';
+import { Search, Filter, X, ShoppingCart, Star, Heart, Fish, Bird, Dog, Zap, Leaf, Factory, Shield, Award, Package, CheckCircle, Milk, Waves, Egg, MessageCircle } from 'lucide-react';
+import { staticProductService } from '../services/staticProductService';
 import { formatCurrency } from '../utils/helpers';
 import Loader, { SkeletonCard } from '../components/Loader';
 import SEO from '../components/SEO';
@@ -141,25 +141,24 @@ const Products = () => {
     { value: 'price_desc', label: 'Price (High to Low)' },
   ];
 
-  const fetchProducts = useCallback(async () => {
+  const fetchProducts = useCallback(async (showLoader = true) => {
     try {
-      setLoading(true);
-      // Request all products without any limit to avoid missing products
-      const result = await productService.getAllProducts({ limit: 100 });
-      if (result.success) {
-        setProducts(result.data.products || result.data || []);
+      if (showLoader) {
+        setLoading(true);
+      }
+      
+      // Request all products from static service
+      const result = await staticProductService.getAllProducts({ limit: 100 });
+      
+      if (result.success && result.data) {
+        const fetchedProducts = result.data.products || result.data || [];
+        setProducts(fetchedProducts);
       } else {
-        toast.error('Failed to load products');
-        setProducts([]);
+        throw new Error(result.message || 'Failed to load products');
       }
     } catch (error) {
       console.error('Error fetching products:', error);
-      if (error.response?.status === 429) {
-        toast.error('Too many requests. Please wait a moment and try again.');
-      } else {
-        toast.error('Failed to load products. Please try again.');
-      }
-      setProducts([]);
+      toast.error('Failed to load products. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -175,7 +174,7 @@ const Products = () => {
 
   useEffect(() => {
     fetchCategories();
-    fetchProducts();
+    fetchProducts(true);
   }, [fetchCategories, fetchProducts]);
 
   // Reset to first page when filters change
@@ -204,6 +203,10 @@ const Products = () => {
     setSelectedCategory('');
     setSortBy('newest');
     setCurrentPage(1);
+  };
+
+  const retryLoadProducts = () => {
+    fetchProducts(true);
   };
 
   const ProductCard = ({ product }) => {
@@ -345,6 +348,100 @@ const Products = () => {
       {/* Products Section */}
       <section id="products-section" className="py-20 bg-gray-50">
         <div className="max-width section-padding">
+          
+          {/* Search and Filters */}
+          <div className="mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+              {/* Search Bar */}
+              <div className="lg:col-span-2">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={() => setSearchTerm('')}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Category Filter */}
+              <div>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => handleCategoryChange(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                >
+                  <option value="">All Categories</option>
+                  {aniLifeCategories.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Sort Filter */}
+              <div>
+                <select
+                  value={sortBy}
+                  onChange={(e) => handleSortChange(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Active Filters */}
+            {(searchTerm || selectedCategory || sortBy !== 'newest') && (
+              <div className="flex flex-wrap items-center gap-2 mt-4">
+                <span className="text-sm text-gray-600">Active filters:</span>
+                {searchTerm && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                    Search: "{searchTerm}"
+                    <button
+                      onClick={() => setSearchTerm('')}
+                      className="ml-2 text-primary-600 hover:text-primary-800"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+                {selectedCategory && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                    Category: {selectedCategory}
+                    <button
+                      onClick={() => setSelectedCategory('')}
+                      className="ml-2 text-primary-600 hover:text-primary-800"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                )}
+                <button
+                  onClick={clearFilters}
+                  className="text-sm text-gray-500 hover:text-gray-700 underline"
+                >
+                  Clear all
+                </button>
+              </div>
+            )}
+          </div>
+
           {/* Section Header */}
           {/* <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -368,8 +465,12 @@ const Products = () => {
        
           {/* Products Grid */}
           {loading ? (
-            <div className="flex justify-center items-center py-20">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600"></div>
+            <div className="text-center py-20">
+              <div className="flex items-center justify-center mb-6">
+                <div className="w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Loading Products...</h3>
+              <p className="text-gray-600">Please wait while we fetch our product catalog</p>
             </div>
           ) : (
             <>
@@ -379,20 +480,26 @@ const Products = () => {
                   <h3 className="text-2xl font-semibold text-gray-900 mb-2">No Products Found</h3>
                   <p className="text-gray-600 mb-6">Try adjusting your search or filter criteria</p>
                   <button
-                    onClick={clearFilters}
+                    onClick={retryLoadProducts}
                     className="bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors"
                   >
-                    Clear Filters
+                    Retry Loading
                   </button>
                 </div>
               ) : (
                 <>
                   {/* Products Results Info */}
                   <div className="flex justify-between items-center mb-8">
-                    <div className="text-sm text-gray-600">
-                      {debouncedSearchTerm || selectedCategory 
-                        ? `Showing ${currentProducts.length} of ${sortedProducts.length} filtered products (${products.length} total)` 
-                        : `Showing ${currentProducts.length} of ${products.length} products`}
+                    <div className="flex items-center space-x-3">
+                      <div className="text-sm text-gray-600">
+                        {debouncedSearchTerm || selectedCategory 
+                          ? `Showing ${currentProducts.length} of ${sortedProducts.length} filtered products (${products.length} total)` 
+                          : `Showing ${currentProducts.length} of ${products.length} products`}
+                      </div>
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                        <MessageCircle className="w-3 h-3 mr-1" />
+                        Static Catalog
+                      </span>
                     </div>
                     {calculatedTotalPages > 1 && (
                       <div className="text-sm text-gray-600">
